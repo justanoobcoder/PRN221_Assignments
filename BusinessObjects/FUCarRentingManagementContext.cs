@@ -30,7 +30,7 @@ public partial class FUCarRentingManagementContext : DbContext
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", true, true)
             .Build();
-        var srtCon = config["ConnectionStrings:FUCarRentingManagementDB"];
+        var srtCon = config["ConnectionStrings:DB"];
         return srtCon;
     }
 
