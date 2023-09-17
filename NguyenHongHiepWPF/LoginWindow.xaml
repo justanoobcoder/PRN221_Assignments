@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NguyenHongHiepWPF"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
-    <Grid>
+        WindowStartupLocation="CenterScreen" FocusManager.FocusedElement="{Binding ElementName=txtEmail}"
+        Title="LoginWindow" Height="200" Width="400">
+
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Login" HorizontalAlignment="Center" FontSize="30" FontWeight="DemiBold" Margin="0 10" />
+        <Grid HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Email:"/>
+            <TextBox x:Name="txtEmail" Grid.Row="0" Grid.Column="1" TabIndex="0" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Password:"/>
+            <PasswordBox x:Name="txtPassword" Grid.Row="1" Grid.Column="1" TabIndex="1" />
+            <Button x:Name="btnSignIn" Grid.Row="2" Grid.Column="1" Content="Sign In" 
+                    Width="200" Margin="0 5" TabIndex="2"/>
+        </Grid>
         
-    </Grid>
+    </StackPanel>
+    
 </Window>
