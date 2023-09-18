@@ -4,6 +4,7 @@ using Repositories;
 using Repositories.Implementations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,12 @@ public partial class CustomerManagementWindow : Window
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
+        bool wasClosedByCode = new StackTrace().GetFrames().Any(x => x.GetMethod()!.Name == "Close");
+        if (wasClosedByCode)
+        {
+            return;
+        }
+
         MessageBoxResult boxResult = MessageBox.Show(
             "Are you sure you want to exit?",
             "Exit",
