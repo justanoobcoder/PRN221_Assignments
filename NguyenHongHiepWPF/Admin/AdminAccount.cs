@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NguyenHongHiepWPF.Constants;
+namespace NguyenHongHiepWPF.Admin;
 
 public sealed class AdminAccount
 {

@@ -1,5 +1,7 @@
 ﻿using BusinessObjects;
-using NguyenHongHiepWPF.Constants;
+using DataAccessObjects;
+using NguyenHongHiepWPF.Admin;
+using NguyenHongHiepWPF.CustomerWindows;
 using Repositories;
 using Repositories.Implementations;
 using System;
@@ -42,17 +44,25 @@ public partial class LoginWindow : Window
         {
             if (email == AdminAccount.Email && password == AdminAccount.Password)
             {
-                MessageBox.Show("Login successfully as admin!");
-                return;
+                AdminDashboardWindow adminDashboard = new();
+                Close();
+                adminDashboard.Show();
             }
-
-            var user = customerRepository.GetCustomer(email, password);
-            if (user == null)
+            else
             {
-                MessageBox.Show("Email or password is incorrect!");
-                return;
+                var user = customerRepository.GetCustomer(email, password);
+                if (user == null)
+                {
+                    MessageBox.Show("Email or password is incorrect!");
+                    return;
+                }
+                CustomerDashboardWindow customerDashboard = new()
+                {
+                    Customer = user
+                };
+                Close();
+                customerDashboard.Show();
             }
-            MessageBox.Show("Login successfully!");
         }
         catch (Exception ex)
         {
