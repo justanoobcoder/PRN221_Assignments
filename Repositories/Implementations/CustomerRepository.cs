@@ -10,6 +10,8 @@ namespace Repositories.Implementations;
 
 public class CustomerRepository : ICustomerRepository
 {
+    public IQueryable<Customer> GetAll() => CustomerDAO.Instance.GetAll();
+
     public Customer? GetCustomer(int id) => CustomerDAO.Instance.GetCustomer(id);
 
     public Customer? GetCustomer(string email) => CustomerDAO.Instance.GetCustomer(email);

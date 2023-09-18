@@ -9,6 +9,7 @@ namespace Repositories;
 
 public interface ICustomerRepository
 {
+    IQueryable<Customer> GetAll();
     Customer? GetCustomer(int id);
     Customer? GetCustomer(string email);
     Customer? GetCustomer(string email, string password);

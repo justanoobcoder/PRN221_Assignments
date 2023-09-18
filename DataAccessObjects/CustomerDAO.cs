@@ -29,6 +29,19 @@ public sealed class CustomerDAO
         }
     }
 
+    public IQueryable<Customer> GetAll()
+    {
+        try
+        {
+            var context = new FUCarRentingManagementContext();
+            return context.Customers;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public Customer? GetCustomer(int id)
     {
         try
