@@ -28,12 +28,13 @@ public partial class LoginWindow : Window
     {
         InitializeComponent();
     }
-
+    
     private void btnSignIn_Click(object sender, RoutedEventArgs e)
     {
         string email = txtEmail.Text;
         string password = txtPassword.Password;
 
+        // Check if email and password are empty
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
             MessageBox.Show("Email and password are required!");
@@ -42,13 +43,15 @@ public partial class LoginWindow : Window
 
         try
         {
+            // Check if email and password are correct for admin
             if (email == AdminAccount.Email && password == AdminAccount.Password)
             {
+                // Open admin dashboard
                 AdminDashboardWindow adminDashboard = new();
                 Close();
                 adminDashboard.Show();
             }
-            else
+            else // Check if email and password are correct for customer
             {
                 var user = customerRepository.GetCustomer(email, password);
                 if (user == null)
@@ -56,6 +59,7 @@ public partial class LoginWindow : Window
                     MessageBox.Show("Email or password is incorrect!");
                     return;
                 }
+                // Open customer dashboard
                 CustomerDashboardWindow customerDashboard = new()
                 {
                     Customer = user
