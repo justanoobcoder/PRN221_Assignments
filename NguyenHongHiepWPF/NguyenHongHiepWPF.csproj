@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
+    <ProjectReference Include="..\Validation\Validation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

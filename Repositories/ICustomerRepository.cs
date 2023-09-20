@@ -13,4 +13,7 @@ public interface ICustomerRepository
     Customer? GetCustomer(int id);
     Customer? GetCustomer(string email);
     Customer? GetCustomer(string email, string password);
+    Customer Create(Customer customer);
+    void Update(Customer customer);
+    void Delete(Customer customer);
 }
