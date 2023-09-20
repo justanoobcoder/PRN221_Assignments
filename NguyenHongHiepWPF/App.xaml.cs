@@ -1,10 +1,4 @@
-﻿using NguyenHongHiepWPF.CustomerManagement;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using NguyenHongHiepWPF.CarManagement;
 using System.Windows;
 
 namespace NguyenHongHiepWPF;
@@ -15,7 +9,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         //LoginWindow window = new();
-        CustomerManagementWindow window = new();
+        CarManagementWindow window = new();
         window.Show();
     }
 }

@@ -17,7 +17,7 @@
     
     <StackPanel>
         <Button x:Name="btnCustomer" Content="Customer Management" Click="btnCustomer_Click" />
-        <Button x:Name="btnCar" Content="Car Management" />
+        <Button x:Name="btnCar" Content="Car Management" Click="btnCar_Click" />
         <Button x:Name="btnRenting" Content="Renting Management" />
         <Button x:Name="btnReport" Content="Statistic Report" />
     </StackPanel>

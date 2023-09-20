@@ -1,4 +1,5 @@
-﻿using NguyenHongHiepWPF.CustomerManagement;
+﻿using NguyenHongHiepWPF.CarManagement;
+using NguyenHongHiepWPF.CustomerManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,13 @@ public partial class AdminDashboardWindow : Window
     private void btnCustomer_Click(object sender, RoutedEventArgs e)
     {
         CustomerManagementWindow window = new();
+        Close();
+        window.Show();
+    }
+
+    private void btnCar_Click(object sender, RoutedEventArgs e)
+    {
+        CarManagementWindow window = new();
         Close();
         window.Show();
     }

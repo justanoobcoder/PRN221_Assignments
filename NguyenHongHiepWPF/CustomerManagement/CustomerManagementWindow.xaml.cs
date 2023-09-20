@@ -24,7 +24,6 @@ public partial class CustomerManagementWindow : Window
 {
     private readonly ICustomerRepository customerRepository = new CustomerRepository();
 
-    public AdminDashboardWindow AdminDashboardWindow { get; set; } = default!;
     public List<Customer> Customers { get; set; } = default!;
     public Customer? SelectedCustomer { get; set; }
 
