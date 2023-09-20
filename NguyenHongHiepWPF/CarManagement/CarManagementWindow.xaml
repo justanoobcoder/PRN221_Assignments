@@ -32,9 +32,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnReload" Content="Reload" Margin="20 10" Click="btnReload_Click" />
-                <Button x:Name="btnCreate" Content="Create" Margin="20 10" />
-                <Button x:Name="btnUpdate" Content="Update" Margin="20 10" />
-                <Button x:Name="btnDelete" Content="Delete" Margin="20 10" />
+                <Button x:Name="btnCreate" Content="Create" Margin="20 10" Click="btnCreate_Click" />
+                <Button x:Name="btnUpdate" Content="Update" Margin="20 10" Click="btnUpdate_Click" />
+                <Button x:Name="btnDelete" Content="Delete" Margin="20 10" Click="btnDelete_Click" />
             </StackPanel>
         </StackPanel>
         <ListView x:Name="lvCars" Grid.Row="1" Grid.Column="0" 

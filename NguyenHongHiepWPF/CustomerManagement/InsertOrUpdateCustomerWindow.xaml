@@ -35,7 +35,7 @@
             <Label Grid.Row="4" Grid.Column="0" Content="Password:" />
             <TextBox x:Name="txtPassword" Grid.Row="4" Grid.Column="1" Text="{Binding Customer.Password}"/>
             <Label Grid.Row="5" Grid.Column="0" Content="Birthday:" />
-            <DatePicker x:Name="dpBirthday" Grid.Row="6" Grid.Column="1"
+            <DatePicker x:Name="dpBirthday" Grid.Row="5" Grid.Column="1"
                          SelectedDate="{Binding Customer.CustomerBirthday}" />
         </Grid>
         <Button x:Name="btnSave" Content="Save" Width="60" HorizontalAlignment="Right" Margin="0 10" Click="btnSave_Click" />

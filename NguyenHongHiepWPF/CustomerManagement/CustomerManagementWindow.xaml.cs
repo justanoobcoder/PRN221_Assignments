@@ -121,6 +121,16 @@ public partial class CustomerManagementWindow : Window
             return;
         }
 
+        if (SelectedCustomer.CustomerStatus == 0)
+        {
+            MessageBox.Show(
+                "This customer is deleted. Cannot update this customer",
+                "Update customer",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
         InsertOrUpdateCustomerWindow window = new()
         {
             Title = "Update customer",

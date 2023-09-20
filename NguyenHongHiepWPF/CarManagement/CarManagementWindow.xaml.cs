@@ -1,5 +1,6 @@
 ﻿using BusinessObjects;
 using NguyenHongHiepWPF.Admin;
+using NguyenHongHiepWPF.CustomerManagement;
 using Repositories;
 using Repositories.Implementations;
 using System;
@@ -91,5 +92,73 @@ public partial class CarManagementWindow : Window
     {
         Cars = carInformationRepository.GetAll().ToList();
         lvCars.ItemsSource = Cars;
+    }
+
+    private void btnCreate_Click(object sender, RoutedEventArgs e)
+    {
+        InsertOrUpdateCarWindow window = new()
+        {
+            Title = "Create car",
+            IsInsertAction = true,
+            CarInformationRepository = carInformationRepository,
+        };
+        bool? result = window.ShowDialog();
+        if (result == true)
+        {
+            btnReload_Click(sender, e);
+        }
+    }
+
+    private void btnUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        if (SelectedCar == null)
+        {
+            MessageBox.Show(
+                "Please select a car to update",
+                "Update car",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+        if (SelectedCar.CarStatus == 0)
+        {
+            MessageBox.Show(
+                "This car is deleted. Cannot update this car",
+                "Update car",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
+        InsertOrUpdateCarWindow window = new()
+        {
+            Title = "Update car",
+            IsInsertAction = false,
+            CarInformationRepository = carInformationRepository,
+            Car = new()
+            {
+                CarId = SelectedCar.CarId,
+                CarName = SelectedCar.CarName,
+                ManufacturerId = SelectedCar.ManufacturerId,
+                SupplierId = SelectedCar.SupplierId,
+                Year = SelectedCar.Year,
+                CarRentingPricePerDay = SelectedCar.CarRentingPricePerDay,
+                SeatingCapacity = SelectedCar.SeatingCapacity,
+                NumberOfDoors = SelectedCar.NumberOfDoors,
+                CarDescription = SelectedCar.CarDescription,
+                FuelType = SelectedCar.FuelType,
+                CarStatus = SelectedCar.CarStatus,
+            }
+        };
+        bool? result = window.ShowDialog();
+        if (result == true)
+        {
+            btnReload_Click(sender, e);
+        }
+    }
+
+    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
