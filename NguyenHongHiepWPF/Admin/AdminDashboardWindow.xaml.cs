@@ -1,5 +1,6 @@
 ﻿using NguyenHongHiepWPF.CarManagement;
 using NguyenHongHiepWPF.CustomerManagement;
+using NguyenHongHiepWPF.RentingManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,5 +36,17 @@ public partial class AdminDashboardWindow : Window
         CarManagementWindow window = new();
         Close();
         window.Show();
+    }
+
+    private void btnRenting_Click(object sender, RoutedEventArgs e)
+    {
+        RentingManagementWindow window = new();
+        Close();
+        window.Show();
+    }
+
+    private void btnReport_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }

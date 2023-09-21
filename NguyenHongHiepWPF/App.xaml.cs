@@ -1,5 +1,7 @@
-﻿using NguyenHongHiepWPF.CarManagement;
+﻿using NguyenHongHiepWPF.Admin;
+using NguyenHongHiepWPF.CarManagement;
 using NguyenHongHiepWPF.CustomerManagement;
+using NguyenHongHiepWPF.RentingManagement;
 using System.Windows;
 
 namespace NguyenHongHiepWPF;
@@ -10,7 +12,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         //LoginWindow window = new();
-        CarManagementWindow window = new();
+        AdminDashboardWindow window = new();
         window.Show();
     }
 }
