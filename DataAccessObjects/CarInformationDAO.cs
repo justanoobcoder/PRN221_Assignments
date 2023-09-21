@@ -157,8 +157,6 @@ public sealed class CarInformationDAO
             var context = new FUCarRentingManagementContext();
             if (c.RentingDetails.Count != 0)
             {
-                if (!IsCarNotBeingRented(car))
-                    throw new Exception("Car is being rented");
                 context.Entry(c).State = EntityState.Detached;
                 car.CarStatus = 0;
                 context.Update(car);

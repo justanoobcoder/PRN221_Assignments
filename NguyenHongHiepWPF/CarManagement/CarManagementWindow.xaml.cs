@@ -159,6 +159,37 @@ public partial class CarManagementWindow : Window
 
     private void btnDelete_Click(object sender, RoutedEventArgs e)
     {
+        if (SelectedCar == null)
+        {
+            MessageBox.Show(
+                "Please select a car to delete",
+                "Delete car",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
 
+        try
+        {
+            MessageBoxResult boxResult = MessageBox.Show(
+                "Are you sure you want to delete this car?",
+                "Delete car",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (boxResult == MessageBoxResult.Yes)
+            {
+                carInformationRepository.Delete(SelectedCar);
+                btnReload_Click(sender, e);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Delete car",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 }
