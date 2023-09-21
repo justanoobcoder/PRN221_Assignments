@@ -78,7 +78,7 @@ public partial class InsertOrUpdateCarWindow : Window
     }
 
     private void ValidateFields(string name, string description, int numberOfDoors, int seatingCapacity,
-        string fuelType, int year, int pricePerDay)
+        string fuelType, int year, decimal pricePerDay)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new Exception("Name is required");
@@ -109,7 +109,7 @@ public partial class InsertOrUpdateCarWindow : Window
             string fuelType = txtFuelType.Text.Trim();
             if (!int.TryParse(txtYear.Text, out int year))
                 throw new Exception("Year must be a number");
-            if (!int.TryParse(txtPricePerDay.Text, out int pricePerDay))
+            if (!decimal.TryParse(txtPricePerDay.Text, out decimal pricePerDay))
                 throw new Exception("Price per day must be a number");
             int manufacturerId = Manufacturers[cbManufacturer.SelectedIndex].ManufacturerId;
             int supplierId = Suppliers[cbSupplier.SelectedIndex].SupplierId;

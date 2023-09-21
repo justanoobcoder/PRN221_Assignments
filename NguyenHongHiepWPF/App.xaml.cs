@@ -1,4 +1,5 @@
 ﻿using NguyenHongHiepWPF.CarManagement;
+using NguyenHongHiepWPF.CustomerManagement;
 using System.Windows;
 
 namespace NguyenHongHiepWPF;
