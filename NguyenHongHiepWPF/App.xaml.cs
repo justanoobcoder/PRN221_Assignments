@@ -13,7 +13,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         //LoginWindow window = new();
-        ReportStatisticWindow window = new();
+        CarManagementWindow window = new();
         window.Show();
     }
 }
