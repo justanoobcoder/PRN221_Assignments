@@ -92,6 +92,22 @@ public sealed class CustomerDAO
         }
     }
 
+    public Customer? GetCustomerByTelephone(string telephone)
+    {
+        try
+        {
+            var context = new FUCarRentingManagementContext();
+            return context.Customers
+                .Where(c => c.Telephone == telephone)
+                .Include(c => c.RentingTransactions)
+                .SingleOrDefault();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public Customer Create(Customer customer)
     {
         if (customer == null)
@@ -104,6 +120,8 @@ public sealed class CustomerDAO
                 throw new Exception("Customer ID is already in use");
             if (GetCustomer(customer.Email) != null)
                 throw new Exception("Email is already in use");
+            if (GetCustomerByTelephone(customer.Telephone!) != null)
+                throw new Exception("Telephone is already in use");
             customer.CustomerStatus = 1;
             context.Customers.Add(customer);
             context.SaveChanges();
@@ -126,6 +144,8 @@ public sealed class CustomerDAO
                 throw new Exception("Customer not found");
             if (c.Email != customer.Email && GetCustomer(customer.Email) != null)
                 throw new Exception("Email is already in use");
+            if (c.Telephone != customer.Telephone && GetCustomerByTelephone(customer.Telephone!) != null)
+                throw new Exception("Telephone is already in use");
             var context = new FUCarRentingManagementContext();
             context.Entry(c).State = EntityState.Detached;
             context.Update(customer);
