@@ -1,4 +1,5 @@
 ﻿using BusinessObjects;
+using NguyenHongHiepWPF.RentingManagement;
 using Repositories;
 using Repositories.Implementations;
 using System;
@@ -97,6 +98,30 @@ public partial class RentingHistoryWindow : Window
 
     private void btnViewDetail_Click(object sender, RoutedEventArgs e)
     {
-
+        if (SelectedRenting == null)
+        {
+            MessageBox.Show(
+                "Please select a renting transaction to view its details",
+                "View details",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+        try
+        {
+            RentingDetailsWindow window = new()
+            {
+                Transaction = SelectedRenting,
+            };
+            window.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "View details",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 }
