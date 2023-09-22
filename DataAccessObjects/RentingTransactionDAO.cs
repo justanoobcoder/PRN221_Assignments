@@ -78,4 +78,53 @@ public class RentingTransactionDAO
             throw new Exception(ex.Message);
         }
     }
+
+    public bool CanRentCar(int carId, DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            var context = new FUCarRentingManagementContext();
+            List<RentingDetail> rentingDetails = context.RentingDetails
+                .Where(rd => rd.CarId == carId)
+                .Include(rd => rd.RentingTransaction)
+                .ToList();
+            return !(rentingDetails.Any(rd => startDate >= rd.StartDate && startDate <= rd.EndDate)
+                || rentingDetails.Any(rd => endDate >= rd.StartDate && endDate <= rd.EndDate)
+                || rentingDetails.Any(rd => startDate <= rd.StartDate && endDate >= rd.EndDate));
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public RentingDetail CreateRentingDetail(RentingDetail rentingDetail)
+    {
+        try
+        {
+            var context = new FUCarRentingManagementContext();
+            context.RentingDetails.Add(rentingDetail);
+            context.SaveChanges();
+            return rentingDetail;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction)
+    {
+        try
+        {
+            var context = new FUCarRentingManagementContext();
+            context.RentingTransactions.Add(rentingTransaction);
+            context.SaveChanges();
+            return rentingTransaction;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 }

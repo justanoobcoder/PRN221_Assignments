@@ -13,7 +13,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         //LoginWindow window = new();
-        CarManagementWindow window = new();
+        RentingManagementWindow window = new();
         window.Show();
     }
 }

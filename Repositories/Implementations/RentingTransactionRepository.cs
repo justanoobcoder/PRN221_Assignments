@@ -10,6 +10,12 @@ namespace Repositories.Implementations;
 
 public class RentingTransactionRepository : IRentingTransactionRepository
 {
+    public bool CanRentCar(int carId, DateTime startDate, DateTime endDate) => RentingTransactionDAO.Instance.CanRentCar(carId, startDate, endDate);
+
+    public RentingDetail CreateRentingDetail(RentingDetail rentingDetail) => RentingTransactionDAO.Instance.CreateRentingDetail(rentingDetail);
+
+    public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction) => RentingTransactionDAO.Instance.CreateTransaction(rentingTransaction);
+
     public IQueryable<RentingTransaction> GetAll() => RentingTransactionDAO.Instance.GetAll();
 
     public IQueryable<RentingTransaction> GetAllBetween(DateTime startDate, DateTime endDate)

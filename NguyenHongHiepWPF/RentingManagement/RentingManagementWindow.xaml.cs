@@ -113,4 +113,10 @@ public partial class RentingManagementWindow : Window
                 MessageBoxImage.Error);
         }
     }
+
+    private void btnCreate_Click(object sender, RoutedEventArgs e)
+    {
+        CreateRentingTransactionWindow window = new();
+        window.ShowDialog();
+    }
 }

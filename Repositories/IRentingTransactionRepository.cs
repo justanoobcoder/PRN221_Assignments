@@ -12,4 +12,7 @@ public interface IRentingTransactionRepository
     RentingTransaction? GetById(int id);
     IQueryable<RentingTransaction> GetAll();
     IQueryable<RentingTransaction> GetAllBetween(DateTime startDate, DateTime endDate);
+    bool CanRentCar(int carId, DateTime startDate, DateTime endDate);
+    RentingTransaction CreateTransaction(RentingTransaction rentingTransaction);
+    RentingDetail CreateRentingDetail(RentingDetail rentingDetail);
 }
