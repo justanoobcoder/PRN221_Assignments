@@ -2,6 +2,7 @@
 using NguyenHongHiepWPF.CarManagement;
 using NguyenHongHiepWPF.CustomerManagement;
 using NguyenHongHiepWPF.RentingManagement;
+using NguyenHongHiepWPF.ReportStatistic;
 using System.Windows;
 
 namespace NguyenHongHiepWPF;
@@ -12,7 +13,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         //LoginWindow window = new();
-        LoginWindow window = new();
+        ReportStatisticWindow window = new();
         window.Show();
     }
 }

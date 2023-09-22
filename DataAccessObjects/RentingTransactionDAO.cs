@@ -61,4 +61,21 @@ public class RentingTransactionDAO
             throw new Exception(ex.Message);
         }
     }
+
+    public IQueryable<RentingTransaction> GetAllBetween(DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            var context = new FUCarRentingManagementContext();
+            return context.RentingTransactions
+                .Where(rt => rt.RentingDate >= startDate && rt.RentingDate <= endDate)
+                .Include(rt => rt.Customer)
+                .Include(rt => rt.RentingDetails)
+                .ThenInclude(rd => rd.Car);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 }

@@ -11,4 +11,5 @@ public interface IRentingTransactionRepository
 {
     RentingTransaction? GetById(int id);
     IQueryable<RentingTransaction> GetAll();
+    IQueryable<RentingTransaction> GetAllBetween(DateTime startDate, DateTime endDate);
 }
