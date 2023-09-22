@@ -12,7 +12,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         //LoginWindow window = new();
-        AdminDashboardWindow window = new();
+        LoginWindow window = new();
         window.Show();
     }
 }

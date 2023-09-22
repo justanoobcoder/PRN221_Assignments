@@ -59,10 +59,17 @@ public partial class LoginWindow : Window
                     MessageBox.Show("Email or password is incorrect!");
                     return;
                 }
+                // Check if customer account is deleted
+                if (user.CustomerStatus == 0)
+                {
+                    MessageBox.Show("Your account is deleted!");
+                    return;
+                }
                 // Open customer dashboard
                 CustomerDashboardWindow customerDashboard = new()
                 {
-                    Customer = user
+                    Customer = user,
+                    CustomerRepository = customerRepository,
                 };
                 Close();
                 customerDashboard.Show();
