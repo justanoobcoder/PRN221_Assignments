@@ -74,6 +74,21 @@ public partial class CustomerDashboardWindow : Window
 
     private void btnViewHistory_Click(object sender, RoutedEventArgs e)
     {
-
+        try
+        {
+            RentingHistoryWindow window = new()
+            {
+                Customer = Customer,
+            };
+            window.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 }
