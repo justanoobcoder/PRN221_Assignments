@@ -29,7 +29,9 @@ public partial class ReportStatisticWindow : Window
 
     public ReportStatisticWindow()
     {
-        Rentings = transactionRepository.GetAllBetween(StartDate, EndDate).ToList();
+        Rentings = transactionRepository.GetAllBetween(StartDate, EndDate)
+            .OrderByDescending(r => r.TotalPrice)
+            .ToList();
         TotalRenting = Rentings.Count;
         TotalPrice = Rentings.Sum(r => r.TotalPrice);
         InitializeComponent();
@@ -49,7 +51,9 @@ public partial class ReportStatisticWindow : Window
             if (StartDate > EndDate)
                 throw new Exception("Start date must be less than end date.");
 
-            Rentings = transactionRepository.GetAllBetween(StartDate, EndDate).ToList();
+            Rentings = transactionRepository.GetAllBetween(StartDate, EndDate)
+                .OrderByDescending(r => r.TotalPrice)
+                .ToList();
             lbCount.Content = Rentings.Count.ToString();
             lbPrice.Content = Rentings.Sum(r => r.TotalPrice).ToString();
             lvRentings.ItemsSource = Rentings;
