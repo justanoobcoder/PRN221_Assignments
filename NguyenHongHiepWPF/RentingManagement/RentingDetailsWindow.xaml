@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NguyenHongHiepWPF.RentingManagement"
+        xmlns:convert="clr-namespace:NguyenHongHiepWPF.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
-        Title="RentingDetailsWindow" Height="450" Width="780">
+        Title="RentingDetailsWindow" Height="450" Width="800">
+    <Window.Resources>
+        <convert:RentingStatusConverter x:Key="statusConverter"/>
+    </Window.Resources>
+    
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Renting Transaction Details" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="20" />
         <Grid Margin="10">
@@ -27,7 +32,9 @@
             <Label Content="Total Price:" Grid.Row="0" Grid.Column="2" Margin="10" />
             <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Transaction.TotalPrice}" IsEnabled="False" />
             <Label Content="Renting Status:" Grid.Row="1" Grid.Column="2" Margin="10" />
-            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Transaction.RentingStatus}" IsEnabled="False" />
+            <TextBox Grid.Row="1" Grid.Column="3" 
+                     Text="{Binding Transaction.RentingStatus, Converter={StaticResource statusConverter}}" 
+                     IsEnabled="False" />
         </Grid>
         <ListView x:Name="lvDetails" ItemsSource="{Binding Details, Mode=TwoWay}">
             <ListView.View>
