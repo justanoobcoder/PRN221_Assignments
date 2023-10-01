@@ -1,3 +1,4 @@
+using NguyenHongHiepRazorPages.Filters;
 using Repositories;
 using Repositories.Impl;
 
@@ -9,7 +10,11 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddMvcOptions(options =>
+    {
+        options.Filters.Add(new AuthorizationFilter());
+    });
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
