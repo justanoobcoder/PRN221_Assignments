@@ -12,6 +12,7 @@
                 <form method="post">
                     <input type="email" placeholder="Email" asp-for="Email">
                     <input type="password" placeholder="Password" asp-for="Password">
+                    <span asp-validation-for="ErrorMessage" class="text-danger"></span>
                     <button>Login</button>
                 </form>
                 <p class="message">Not registered? <a href="Register">Create an Account</a></p>
