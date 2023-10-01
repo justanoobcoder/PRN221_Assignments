@@ -1,6 +1,7 @@
 ﻿using NguyenHongHiepWPF.CarManagement;
 using NguyenHongHiepWPF.CustomerManagement;
 using NguyenHongHiepWPF.RentingManagement;
+using NguyenHongHiepWPF.ReportStatistic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,7 @@ public partial class AdminDashboardWindow : Window
 
     private void btnReport_Click(object sender, RoutedEventArgs e)
     {
-
+        ReportStatisticWindow window = new();
+        window.ShowDialog();
     }
 }
