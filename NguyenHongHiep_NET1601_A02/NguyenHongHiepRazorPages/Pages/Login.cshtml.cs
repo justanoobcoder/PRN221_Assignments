@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NguyenHongHiepRazorPages.Admin;
+using NguyenHongHiepRazorPages.Models;
+using NguyenHongHiepRazorPages.Utils;
 using Repositories;
 
 namespace NguyenHongHiepRazorPages.Pages;
@@ -26,14 +28,28 @@ public class LoginModel : PageModel
     public IActionResult OnPost()
     {
         if (AdminAccount.IsAdmin(Email, Password))
+        {
+            HttpContext.Session.SetObjectAsJson(Constants.Contants.CurrentUserKey, new CurrentUser
+            {
+                Email = Email,
+                IsAdmin = true,
+            });
             return RedirectToPage("/Admin/Index");
+        }
         else
         {
             var customer = _customerRepository.GetByEmailAndPassword(Email, Password);
             if (customer == null)
                 ModelState.AddModelError(nameof(ErrorMessage), "Wrong email or password");
             else
-                return RedirectToPage("Customer/Index");
+            {
+                HttpContext.Session.SetObjectAsJson(Constants.Contants.CurrentUserKey, new CurrentUser
+                {
+                    Email = Email,
+                    IsAdmin = false,
+                });
+                return RedirectToPage("/Customer/Index");
+            }
         }
 
         return Page();
