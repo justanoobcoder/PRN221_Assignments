@@ -21,8 +21,11 @@ public class IndexModel : PageModel
 
     public IList<CarInformation> CarInformation { get;set; } = default!;
 
-    public void OnGet()
+    public void OnGet(string? name)
     {
-        CarInformation = _carRepository.GetAll().ToList();
+        if (string.IsNullOrEmpty(name))
+            CarInformation = _carRepository.GetAll().ToList();
+        else
+            CarInformation = _carRepository.GetByName(name).ToList();
     }
 }
