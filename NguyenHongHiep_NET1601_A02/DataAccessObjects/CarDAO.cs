@@ -67,6 +67,7 @@ public class CarDAO
         var car = context.CarInformations
             .Include(c => c.Manufacturer)
             .Include(c => c.Supplier)
+            .Include(c => c.RentingDetails)
             .SingleOrDefault(c => c.CarId == id);
         return car;
     }

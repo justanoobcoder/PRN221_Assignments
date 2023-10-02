@@ -6,37 +6,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
+using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement
+namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly ICarRepository _carRepository;
+
+    public DetailsModel(ICarRepository carRepository)
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        _carRepository = carRepository;
+    }
 
-        public DetailsModel(BusinessObjects.FucarRentingManagementContext context)
+    public CarInformation CarInformation { get; set; } = default!; 
+
+    public IActionResult OnGet(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-      public CarInformation CarInformation { get; set; } = default!; 
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var carinformation = _carRepository.GetById(id.Value);
+        if (carinformation == null || carinformation.CarStatus == 0)
         {
-            if (id == null || _context.CarInformations == null)
-            {
-                return NotFound();
-            }
-
-            var carinformation = await _context.CarInformations.FirstOrDefaultAsync(m => m.CarId == id);
-            if (carinformation == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                CarInformation = carinformation;
-            }
-            return Page();
+            return NotFound();
         }
+        else 
+        {
+            CarInformation = carinformation;
+        }
+        return Page();
     }
 }
