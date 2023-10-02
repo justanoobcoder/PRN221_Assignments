@@ -6,57 +6,57 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
+using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement
+namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ICarRepository _carRepository;
+
+    public DeleteModel(ICarRepository carRepository)
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        _carRepository = carRepository;
+    }
 
-        public DeleteModel(BusinessObjects.FucarRentingManagementContext context)
+    [BindProperty]
+    public CarInformation CarInformation { get; set; } = default!;
+
+    public IActionResult OnGet(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public CarInformation CarInformation { get; set; } = default!;
+        var carinformation = _carRepository.GetById(id.Value);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (carinformation == null || carinformation.CarStatus == 0)
         {
-            if (id == null || _context.CarInformations == null)
-            {
-                return NotFound();
-            }
-
-            var carinformation = await _context.CarInformations.FirstOrDefaultAsync(m => m.CarId == id);
-
-            if (carinformation == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                CarInformation = carinformation;
-            }
-            return Page();
+            return NotFound();
         }
-
-        public async Task<IActionResult> OnPostAsync(int? id)
+        else 
         {
-            if (id == null || _context.CarInformations == null)
-            {
-                return NotFound();
-            }
-            var carinformation = await _context.CarInformations.FindAsync(id);
-
-            if (carinformation != null)
-            {
-                CarInformation = carinformation;
-                _context.CarInformations.Remove(CarInformation);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            CarInformation = carinformation;
         }
+        return Page();
+    }
+
+    public IActionResult OnPost(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var carinformation = _carRepository.GetById(id.Value);
+
+        if (carinformation != null && carinformation.CarStatus != 0)
+        {
+            CarInformation = carinformation;
+            _carRepository.Delete(CarInformation);
+        }
+        else return NotFound();
+
+        return RedirectToPage("./Index");
     }
 }

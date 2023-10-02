@@ -93,21 +93,22 @@ public class CarDAO
 
     public void Delete(CarInformation car)
     {
-        CarInformation? c = GetById(car.CarId);
+        var context = new FucarRentingManagementContext();
+        CarInformation? c = context.CarInformations
+            .Include(c => c.RentingDetails)
+            .SingleOrDefault(c => c.CarId == car.CarId);
+
         if (c == null)
             throw new Exception("Car not found");
 
-        var context = new FucarRentingManagementContext();
         if (c.RentingDetails.Count != 0)
         {
-            context.Entry(c).State = EntityState.Detached;
             car.CarStatus = 0;
-            context.Update(car);
+            context.Entry(c) .CurrentValues.SetValues(car);
         }
         else
         {
-            context.Entry(c).State = EntityState.Detached;
-            context.Remove(car);
+            context.Remove(c);
         }
         context.SaveChanges();
     }
