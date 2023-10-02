@@ -52,6 +52,8 @@ public class LoginModel : PageModel
             var customer = _customerRepository.GetByEmailAndPassword(Email, Password);
             if (customer == null)
                 ModelState.AddModelError(nameof(ErrorMessage), "Wrong email or password");
+            else if (customer.CustomerStatus == 0)
+                ModelState.AddModelError(nameof(ErrorMessage), "This account is deleted");
             else
             {
                 HttpContext.Session.SetObjectAsJson(Constants.Contants.CurrentUserKey, new CurrentUser
