@@ -21,8 +21,17 @@ public class LoginModel : PageModel
     public string Password { get; set; } = default!;
     public string? ErrorMessage { get; set; } = default!;
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        var currentUser = HttpContext.Session.GetObjectFromJson<CurrentUser>(Constants.Contants.CurrentUserKey);
+        if (currentUser != null)
+        {
+            if (currentUser.IsAdmin)
+                return RedirectToPage("/Admin/Index");
+            else
+                return RedirectToPage("/Customer/Index");
+        }
+        return Page();
     }
 
     public IActionResult OnPost()
