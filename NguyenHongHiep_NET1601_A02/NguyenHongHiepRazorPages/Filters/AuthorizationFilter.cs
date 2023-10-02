@@ -22,7 +22,7 @@ public class AuthorizationFilter : IPageFilter
             context.HttpContext.Response.Redirect("/");
         else if (!currentUser.IsAdmin && (url.ToLower().StartsWith("/admin") || url.ToLower().StartsWith("/admin/")))
             context.HttpContext.Response.Redirect("/ForbidenError");
-        else if (currentUser.IsAdmin && (url.ToLower().StartsWith("/customer") || url.ToLower().StartsWith("/customer/")))
+        else if (currentUser.IsAdmin && (url.ToLower().StartsWith("/member") || url.ToLower().StartsWith("/member/")))
             context.HttpContext.Response.Redirect("/ForbidenError");
     }
 

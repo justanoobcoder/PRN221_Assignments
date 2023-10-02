@@ -27,7 +27,7 @@ public class RegisterModel : PageModel
             if (currentUser.IsAdmin)
                 return RedirectToPage("/Admin/Index");
             else
-                return RedirectToPage("/Customer/Index");
+                return RedirectToPage("/Member/Index");
         }
         return Page();
     }

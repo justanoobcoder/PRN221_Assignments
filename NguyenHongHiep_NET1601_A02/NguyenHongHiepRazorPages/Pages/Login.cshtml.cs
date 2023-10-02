@@ -23,13 +23,15 @@ public class LoginModel : PageModel
 
     public IActionResult OnGet()
     {
+        return RedirectToPage("/Admin/Index");
+
         var currentUser = HttpContext.Session.GetObjectFromJson<CurrentUser>(Constants.Contants.CurrentUserKey);
         if (currentUser != null)
         {
             if (currentUser.IsAdmin)
                 return RedirectToPage("/Admin/Index");
             else
-                return RedirectToPage("/Customer/Index");
+                return RedirectToPage("/Member/Index");
         }
         return Page();
     }
@@ -57,10 +59,16 @@ public class LoginModel : PageModel
                     Email = Email,
                     IsAdmin = false,
                 });
-                return RedirectToPage("/Customer/Index");
+                return RedirectToPage("/Member/Index");
             }
         }
 
         return Page();
+    }
+
+    public IActionResult OnPostLogout()
+    {
+        HttpContext.Session.Remove(Constants.Contants.CurrentUserKey);
+        return RedirectToPage("/Login");
     }
 }

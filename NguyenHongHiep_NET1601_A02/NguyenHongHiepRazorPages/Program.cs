@@ -13,7 +13,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddRazorPages()
     .AddMvcOptions(options =>
     {
-        options.Filters.Add(new AuthorizationFilter());
+        //options.Filters.Add(new AuthorizationFilter());
     });
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
