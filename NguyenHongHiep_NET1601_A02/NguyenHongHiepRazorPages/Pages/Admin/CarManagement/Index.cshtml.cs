@@ -6,27 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
+using Repositories;
 
 namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement;
 
 public class IndexModel : PageModel
 {
-    private readonly BusinessObjects.FucarRentingManagementContext _context;
+    private readonly ICarRepository _carRepository;
 
-    public IndexModel(BusinessObjects.FucarRentingManagementContext context)
+    public IndexModel(ICarRepository carRepository)
     {
-        _context = context;
+        _carRepository = carRepository;
     }
 
     public IList<CarInformation> CarInformation { get;set; } = default!;
 
-    public async Task OnGetAsync()
+    public void OnGet()
     {
-        if (_context.CarInformations != null)
-        {
-            CarInformation = await _context.CarInformations
-            .Include(c => c.Manufacturer)
-            .Include(c => c.Supplier).ToListAsync();
-        }
+        CarInformation = _carRepository.GetAll().ToList();
     }
 }

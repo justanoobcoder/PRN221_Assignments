@@ -2,13 +2,14 @@
 @model NguyenHongHiepRazorPages.Pages.Admin.CarManagement.IndexModel
 
 @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-primary" asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -32,9 +33,6 @@
                 @Html.DisplayNameFor(model => model.CarInformation[0].Year)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarInformation[0].CarStatus)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CarInformation[0].CarRentingPricePerDay)
             </th>
             <th>
@@ -43,7 +41,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.CarInformation[0].Supplier)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarInformation[0].CarStatus)
+            </th>
+            <th width="10%">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -68,9 +69,6 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CarStatus)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CarRentingPricePerDay)
             </td>
             <td>
@@ -80,9 +78,24 @@
                 @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.CarId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CarId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CarId">Delete</a>
+                @if (item.CarStatus == 1)
+                {
+                    <span style="color: green;">Active</span>
+                }
+                else
+                {
+                    <span style="color: red">Deleted</span>
+                }
+            </td>
+            <td>
+                @if (item.CarStatus == 1)
+                {
+                    <span>
+                        <a asp-page="./Edit" asp-route-id="@item.CarId"><i class="fa fa-edit" style="font-size:24px"></i></a> |
+                        <a asp-page="./Details" asp-route-id="@item.CarId"><i class="fa fa-eye" style="font-size:24px"></i></a> |
+                        <a asp-page="./Delete" asp-route-id="@item.CarId"><i class="fa fa-trash-o text-danger" style="font-size:24px"></i></a>
+                    </span>
+                }
             </td>
         </tr>
 }
