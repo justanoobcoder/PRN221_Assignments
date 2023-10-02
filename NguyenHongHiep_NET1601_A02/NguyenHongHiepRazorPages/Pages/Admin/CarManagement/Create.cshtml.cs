@@ -6,41 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjects;
+using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement
+namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement;
+
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly ICarRepository _carRepository;
+
+    public CreateModel(ICarRepository carRepository)
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        _carRepository = carRepository;
+    }
 
-        public CreateModel(BusinessObjects.FucarRentingManagementContext context)
-        {
-            _context = context;
-        }
+    public IActionResult OnGet()
+    {
+        var manufacturers = _carRepository.GetAllManufactuers().ToList();
+        var suppliers = _carRepository.GetAllSuppliers().ToList();
+        ViewData["ManufacturerId"] = new SelectList(manufacturers, "ManufacturerId", "ManufacturerName");
+        ViewData["SupplierId"] = new SelectList(suppliers, "SupplierId", "SupplierName");
+        return Page();
+    }
 
-        public IActionResult OnGet()
-        {
-        ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "ManufacturerName");
-        ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierName");
-            return Page();
-        }
+    [BindProperty]
+    public CarInformation CarInformation { get; set; } = default!;
+    
 
-        [BindProperty]
-        public CarInformation CarInformation { get; set; } = default!;
-        
+    public IActionResult OnPost()
+    {
+        _carRepository.Insert(CarInformation);
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid || _context.CarInformations == null || CarInformation == null)
-            {
-                return Page();
-            }
-
-            _context.CarInformations.Add(CarInformation);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

@@ -2,6 +2,7 @@
 @model NguyenHongHiepRazorPages.Pages.Admin.CarManagement.CreateModel
 
 @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Create";
 }
 
@@ -16,32 +17,32 @@
             <div class="form-group">
                 <label asp-for="CarInformation.CarName" class="control-label"></label>
                 <input asp-for="CarInformation.CarName" class="form-control" />
-                <span asp-validation-for="CarInformation.CarName" class="text-danger"></span>
+                @Html.ValidationMessageFor(model => model.CarInformation.CarName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label asp-for="CarInformation.CarDescription" class="control-label"></label>
                 <input asp-for="CarInformation.CarDescription" class="form-control" />
-                <span asp-validation-for="CarInformation.CarDescription" class="text-danger"></span>
+                @Html.ValidationMessageFor(model => model.CarInformation.CarDescription, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label asp-for="CarInformation.NumberOfDoors" class="control-label"></label>
-                <input asp-for="CarInformation.NumberOfDoors" class="form-control" />
-                <span asp-validation-for="CarInformation.NumberOfDoors" class="text-danger"></span>
+                <input type="number" asp-for="CarInformation.NumberOfDoors" class="form-control no-space" />
+                @Html.ValidationMessageFor(model => model.CarInformation.NumberOfDoors, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label asp-for="CarInformation.SeatingCapacity" class="control-label"></label>
-                <input asp-for="CarInformation.SeatingCapacity" class="form-control" />
-                <span asp-validation-for="CarInformation.SeatingCapacity" class="text-danger"></span>
+                <input type="number" asp-for="CarInformation.SeatingCapacity" class="form-control no-space" />
+                @Html.ValidationMessageFor(model => model.CarInformation.SeatingCapacity, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label asp-for="CarInformation.FuelType" class="control-label"></label>
                 <input asp-for="CarInformation.FuelType" class="form-control" />
-                <span asp-validation-for="CarInformation.FuelType" class="text-danger"></span>
+                @Html.ValidationMessageFor(model => model.CarInformation.FuelType, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label asp-for="CarInformation.Year" class="control-label"></label>
-                <input asp-for="CarInformation.Year" class="form-control" />
-                <span asp-validation-for="CarInformation.Year" class="text-danger"></span>
+                <input type="number" asp-for="CarInformation.Year" class="form-control no-space" />
+                @Html.ValidationMessageFor(model => model.CarInformation.Year, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label asp-for="CarInformation.ManufacturerId" class="control-label"></label>
@@ -52,16 +53,11 @@
                 <select asp-for="CarInformation.SupplierId" class ="form-control" asp-items="ViewBag.SupplierId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="CarInformation.CarStatus" class="control-label"></label>
-                <input asp-for="CarInformation.CarStatus" class="form-control" />
-                <span asp-validation-for="CarInformation.CarStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="CarInformation.CarRentingPricePerDay" class="control-label"></label>
-                <input asp-for="CarInformation.CarRentingPricePerDay" class="form-control" />
-                <span asp-validation-for="CarInformation.CarRentingPricePerDay" class="text-danger"></span>
+                <input asp-for="CarInformation.CarRentingPricePerDay" class="form-control no-space" />
+                @Html.ValidationMessageFor(model => model.CarInformation.CarRentingPricePerDay, "", new { @class = "text-danger" })
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3 mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -69,7 +65,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a class="btn btn-outline-primary" asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
