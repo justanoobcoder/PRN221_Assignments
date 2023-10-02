@@ -31,7 +31,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Customer.Birthday" class="control-label"></label>
-                <input asp-for="Customer.Birthday" class="form-control" />
+                <input asp-for="Customer.Birthday" class="form-control" min="1900-01-01"
+                       onfocus="this.max=new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate()).toISOString().split('T')[0]" />
                 @Html.ValidationMessageFor(m => m.Customer.Birthday, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">

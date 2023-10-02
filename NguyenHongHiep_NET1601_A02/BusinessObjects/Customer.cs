@@ -21,7 +21,7 @@ public partial class Customer
     public string? Telephone { get; set; }
 
     [Required(ErrorMessage = "Email is required")]
-    [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Email is not valid")]
+    [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){1,3})+)$", ErrorMessage = "Email is not valid")]
     [DisplayName("Email")]
     public string Email { get; set; } = null!;
 

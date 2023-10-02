@@ -42,6 +42,10 @@ public class RegisterModel : PageModel
         {
             ModelState.AddModelError("Customer.Email", "Email already exists");
         }
+        if (Customer.Birthday.AddYears(18) > DateTime.Now)
+        {
+            ModelState.AddModelError("Customer.Birthday", "Customer must be at least 18 years old");
+        }
 
         if (ModelState.IsValid)
         {

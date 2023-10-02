@@ -31,7 +31,8 @@
                         @Html.ValidationMessageFor(m => m.Customer.ConfirmPassword, "", new { @class = "text-danger" })
                     </div>
                     <div>
-                        <input type="date" placeholder="Birthday" asp-for="Customer.Birthday" />
+                        <input type="date" placeholder="Birthday" asp-for="Customer.Birthday" min="1900-01-01"
+                               onfocus="this.max=new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate()).toISOString().split('T')[0]" />
                         @Html.ValidationMessageFor(m => m.Customer.Birthday, "", new { @class = "text-danger" })
                     </div>
                     <button>Create</button>
