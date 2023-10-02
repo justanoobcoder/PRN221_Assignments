@@ -10,6 +10,7 @@ using Repositories;
 
 namespace NguyenHongHiepRazorPages.Pages.Admin.CustomerManagement;
 
+[BindProperties]
 public class DetailsModel : PageModel
 {
     private readonly ICustomerRepository _customerRepository;
@@ -29,7 +30,7 @@ public class DetailsModel : PageModel
         }
 
         var customer = _customerRepository.GetById(id.Value);
-        if (customer == null)
+        if (customer == null || customer.CustomerStatus == 0)
         {
             return NotFound();
         }
