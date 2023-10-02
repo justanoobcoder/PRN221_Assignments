@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjects;
 using Repositories;
+using NguyenHongHiepRazorPages.Models;
+using NguyenHongHiepRazorPages.Admin;
 
 namespace NguyenHongHiepRazorPages.Pages.Admin.CustomerManagement;
 
@@ -25,17 +27,34 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
-    public Customer Customer { get; set; } = default!;
+    public RegisterCustomerModel Customer { get; set; } = default!;
     
 
     public IActionResult OnPost()
     {
-      if (!ModelState.IsValid || Customer == null)
+        if (_customerRepository.ExistsByTelephone(Customer.Telephone))
+        {
+            ModelState.AddModelError("Customer.Telephone", "Phone number already exists");
+        }
+        if (Customer.Email == AdminAccount.Email || _customerRepository.ExistsByEmail(Customer.Email))
+        {
+            ModelState.AddModelError("Customer.Email", "Email already exists");
+        }
+
+        if (!ModelState.IsValid || Customer == null)
         {
             return Page();
         }
-
-        _customerRepository.Insert(Customer);
+        var customer = new Customer
+        {
+            CustomerName = Customer.Name.Trim(),
+            Telephone = Customer.Telephone,
+            Email = Customer.Email,
+            Password = Customer.Password,
+            CustomerBirthday = Customer.Birthday,
+            CustomerStatus = 1,
+        };
+        _customerRepository.Insert(customer);
 
         return RedirectToPage("./Index");
     }
