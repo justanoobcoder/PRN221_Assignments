@@ -7,72 +7,53 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
+using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement
+namespace NguyenHongHiepRazorPages.Pages.Admin.CarManagement;
+
+public class EditModel : PageModel
 {
-    public class EditModel : PageModel
+    private readonly ICarRepository _carRepository;
+
+    public EditModel(ICarRepository carRepository)
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        _carRepository = carRepository;
+    }
 
-        public EditModel(BusinessObjects.FucarRentingManagementContext context)
+    [BindProperty]
+    public CarInformation CarInformation { get; set; } = default!;
+
+    public IActionResult OnGet(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public CarInformation CarInformation { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var carinformation = _carRepository.GetById(id.Value);
+        if (carinformation == null || carinformation.CarStatus == 0)
         {
-            if (id == null || _context.CarInformations == null)
-            {
-                return NotFound();
-            }
-
-            var carinformation =  await _context.CarInformations.FirstOrDefaultAsync(m => m.CarId == id);
-            if (carinformation == null)
-            {
-                return NotFound();
-            }
-            CarInformation = carinformation;
-           ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "ManufacturerName");
-           ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierName");
-            return Page();
+            return NotFound();
         }
+        CarInformation = carinformation;
+        var manufacturers = _carRepository.GetAllManufactuers().ToList();
+        var suppliers = _carRepository.GetAllSuppliers().ToList();
+        ViewData["ManufacturerId"] = new SelectList(manufacturers, "ManufacturerId", "ManufacturerName");
+        ViewData["SupplierId"] = new SelectList(suppliers, "SupplierId", "SupplierName");
+        return Page();
+    }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+    public IActionResult OnPost()
+    {
+        var oldCar = _carRepository.GetById(CarInformation.CarId);
+        if (oldCar == null || oldCar.CarStatus == 0)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(CarInformation).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CarInformationExists(CarInformation.CarId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
+            return NotFound();
         }
+        CarInformation.CarStatus = oldCar.CarStatus;
 
-        private bool CarInformationExists(int id)
-        {
-          return (_context.CarInformations?.Any(e => e.CarId == id)).GetValueOrDefault();
-        }
+        _carRepository.Update(CarInformation);
+
+        return RedirectToPage("./Index");
     }
 }

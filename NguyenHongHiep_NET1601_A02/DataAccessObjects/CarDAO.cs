@@ -83,11 +83,12 @@ public class CarDAO
 
     public void Update(CarInformation car)
     {
-        CarInformation? c = GetById(car.CarId);
+        var context = new FucarRentingManagementContext();
+        CarInformation? c = context.CarInformations
+            .SingleOrDefault(c => c.CarId == car.CarId);
         if (c == null)
             throw new Exception("Car not found");
 
-        var context = new FucarRentingManagementContext();
         context.Entry(c).CurrentValues.SetValues(car);
         context.SaveChanges();
     }
