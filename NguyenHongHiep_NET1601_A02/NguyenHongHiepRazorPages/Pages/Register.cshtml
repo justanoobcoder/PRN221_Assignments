@@ -11,31 +11,43 @@
             <div class="register-form">
                 <form method="post">
                     <div>
-                        <input type="number" placeholder="Telephone" asp-for="Customer.Telephone">
-                        <span class="text-danger" asp-validation-for="Customer.Telephone" />
-                    </div>
-                    <div>
                         <input type="text" placeholder="Name" asp-for="Customer.Name">
-                        <span class="text-danger" asp-validation-for="Customer.Name" />
+                        @Html.ValidationMessageFor(m => m.Customer.Name, "", new { @class = "text-danger" })
                     </div>
                     <div>
-                        <input type="email" placeholder="Email" asp-for="Customer.Email">
-                        <span class="text-danger" asp-validation-for="Customer.Email" />
+                        <input type="number" class="no-space" placeholder="Telephone" asp-for="Customer.Telephone">
+                        @Html.ValidationMessageFor(m => m.Customer.Telephone, "", new { @class = "text-danger" })
                     </div>
                     <div>
-                        <input type="password" placeholder="Password" asp-for="Customer.Password">
-                        <span class="text-danger" asp-validation-for="Customer.Password" />
+                        <input type="email" class="no-space" placeholder="Email" asp-for="Customer.Email">
+                        @Html.ValidationMessageFor(m => m.Customer.Email, "", new { @class = "text-danger" })
                     </div>
                     <div>
-                        <input type="password" placeholder="Confirm Password" asp-for="Customer.ConfirmPassword">
-                        <span class="text-danger" asp-validation-for="Customer.ConfirmPassword" />
+                        <input type="password" class="no-space" placeholder="Password" asp-for="Customer.Password">
+                        @Html.ValidationMessageFor(m => m.Customer.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <input type="password" class="no-space" placeholder="Confirm Password" asp-for="Customer.ConfirmPassword">
+                        @Html.ValidationMessageFor(m => m.Customer.ConfirmPassword, "", new { @class = "text-danger" })
                     </div>
                     <div>
                         <input type="date" placeholder="Birthday" asp-for="Customer.Birthday" />
-                        <span class="text-danger" asp-validation-for="Customer.Birthday" />
+                        @Html.ValidationMessageFor(m => m.Customer.Birthday, "", new { @class = "text-danger" })
                     </div>
                     <button>Create</button>
                 </form>
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @TempData["Success"]
+                    </div>
+                }
+                else if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["Error"]
+                    </div>
+                }
                 <p class="message">Already registered? <a href="/">Sign In</a></p>
             </div>
         </div>
