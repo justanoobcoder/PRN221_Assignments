@@ -31,7 +31,7 @@ public class DeleteModel : PageModel
 
         var customer = _customerRepository.GetById(id.Value);
 
-        if (customer == null)
+        if (customer == null || customer.CustomerStatus == 0)
         {
             return NotFound();
         }
@@ -50,10 +50,14 @@ public class DeleteModel : PageModel
         }
         var customer = _customerRepository.GetById(id.Value);
 
-        if (customer != null)
+        if (customer != null && customer.CustomerStatus != 0)
         {
             Customer = customer;
             _customerRepository.Delete(Customer);
+        }
+        else
+        {
+            return NotFound();
         }
 
         return RedirectToPage("./Index");

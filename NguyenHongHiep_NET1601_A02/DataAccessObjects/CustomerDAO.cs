@@ -1,4 +1,5 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,10 +114,21 @@ public class CustomerDAO
         if (customer == null)
             throw new ArgumentNullException("Customer is null");
         var context = new FucarRentingManagementContext();
-        var customerToDelete = context.Customers.Find(customer.CustomerId);
-        if (customerToDelete == null)
-            throw new ArgumentException("Customer with this id does not exist");
-        context.Customers.Remove(customerToDelete);
+        Customer? c = context.Customers
+            .Include(c => c.RentingTransactions)
+            .SingleOrDefault(c => c.CustomerId == customer.CustomerId);
+        if (c == null)
+            throw new Exception("Customer not found");
+        context.Entry(c).State = EntityState.Detached;
+        if (c.RentingTransactions.Count != 0)
+        {
+            customer.CustomerStatus = 0;
+            context.Update(customer);
+        }
+        else
+        {
+            context.Remove(customer);
+        }
         context.SaveChanges();
     }
 }
