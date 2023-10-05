@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <header class="custom-header">
+        <div class="custom-container">
+            <div class="header__logo">
+                <h3 class="header__logo__name">FU Car Renting System</h3>
+            </div>
+            <nav class="header__nav">
+                <ul class="header__menu">
+                    <li class="header__item"><a asp-page="/Member/Profile/Index" class="header__link">Profile</a></li>
+                    <li class="header__item"><a href="#" class="header__link">Rentings</a></li>
+                    <form method="post" asp-page="/Login" asp-page-handler="Logout">
+                        <button class="custom-btn-link">Logout</button>
+                    </form>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/validation.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
