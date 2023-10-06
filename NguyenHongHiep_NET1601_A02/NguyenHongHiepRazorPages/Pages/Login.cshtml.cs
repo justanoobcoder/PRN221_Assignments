@@ -23,6 +23,8 @@ public class LoginModel : PageModel
 
     public IActionResult OnGet()
     {
+        return RedirectToPage("/Admin/ReportStatistic/Index");
+
         var currentUser = HttpContext.Session.GetObjectFromJson<CurrentUser>(Constants.Contants.CurrentUserKey);
         if (currentUser != null)
         {

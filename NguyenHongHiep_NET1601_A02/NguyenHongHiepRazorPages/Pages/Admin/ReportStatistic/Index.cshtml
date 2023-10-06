@@ -1,0 +1,53 @@
+﻿@page
+@model NguyenHongHiepRazorPages.Pages.Admin.ReportStatistic.IndexModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Report Statistic";
+}
+
+<h4>Report Statistic</h4>
+
+<div>
+    <form method="get">
+        <label>From: </label>
+        <input type="date" asp-for="StartDate" name="start" onfocus="this.max=new Date().toISOString().split('T')[0]" />
+        <label>To: </label>
+        <input type="date" asp-for="EndDate" name="end" onfocus="this.max=new Date().toISOString().split('T')[0]" />
+        <button class="btn btn-primary">Search</button>
+    </form>
+    @Html.ValidationMessageFor(m => m.ErrorMessage, "", new { @class = "text-danger" })
+</div>
+<hr />
+<div>
+    <lable>Total Transactions: @Model.TotalRenting</lable><br />
+    <lable>Total Price: @Model.TotalPrice</lable>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Renting Date</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Rentings)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingTransationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
