@@ -11,4 +11,7 @@ namespace Repositories.Impl;
 public class RentingRepository : IRentingRepository
 {
     public IQueryable<RentingTransaction> GetAllTransactions() => RentingDAO.Instance.GetAllTransactions();
+
+    public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction) 
+        => RentingDAO.Instance.CreateTransaction(rentingTransaction);
 }

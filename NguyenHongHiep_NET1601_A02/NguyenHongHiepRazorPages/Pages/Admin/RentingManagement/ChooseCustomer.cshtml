@@ -1,0 +1,66 @@
+﻿@page
+@model NguyenHongHiepRazorPages.Pages.Admin.RentingManagement.ChooseCustomerModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Choose Customer";
+}
+
+<h1>Choose Customer</h1>
+
+<div>
+    <form method="get">
+        <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Search by name">
+        </div>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Telephone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerBirthday)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customer)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerBirthday)
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="id" value="@item.CustomerId">
+                        <button class="btn btn-primary">Choose</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

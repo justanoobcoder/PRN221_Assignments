@@ -10,4 +10,5 @@ namespace Repositories;
 public interface IRentingRepository
 {
     IQueryable<RentingTransaction> GetAllTransactions();
+    RentingTransaction CreateTransaction(RentingTransaction rentingTransaction);
 }

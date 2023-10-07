@@ -38,4 +38,12 @@ public class RentingDAO
             .Include(r => r.Customer)
             .Include(r => r.RentingDetails);
     }
+
+    public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction)
+    {
+        var context = new FucarRentingManagementContext();
+        context.RentingTransactions.Add(rentingTransaction);
+        context.SaveChanges();
+        return rentingTransaction;
+    }
 }

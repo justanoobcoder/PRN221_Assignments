@@ -1,0 +1,100 @@
+﻿@page
+@model NguyenHongHiepRazorPages.Pages.Admin.RentingManagement.ChooseCarsModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Choose Cars";
+}
+
+<h3>Customer Information</h3>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.CustomerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.CustomerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.Telephone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Telephone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Email)
+        </dd>
+    </dl>
+</div>
+
+<hr />
+<form method="post">
+    <div class="form-group">
+        <label class="control-label">Select car</label>
+        <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
+        <div class="mt-2"></div>
+        <label>Rent From: </label>
+        <input type="date" asp-for="StartDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
+        <label>To: </label>
+        <input type="date" asp-for="EndDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
+        <button class="btn btn-primary">Add car</button>
+    </div>
+</form>
+@if (Model.RentingCars.Count > 0)
+{
+    <h4>Car list</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentingCars[0].CarId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentingCars[0].CarName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentingCars[0].StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentingCars[0].EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentingCars[0].Price)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RentingCars)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete">
+                            <input type="hidden" name="id" value="@item.CarId">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
