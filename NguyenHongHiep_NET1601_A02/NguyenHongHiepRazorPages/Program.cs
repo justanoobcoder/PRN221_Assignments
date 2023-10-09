@@ -29,6 +29,8 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
+app.UseRequestLocalization("vi-VN");
+
 app.UseSession();
 
 app.UseRouting();
