@@ -11,9 +11,9 @@ namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement
 {
     public class DetailsModel : PageModel
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        private readonly DataAccessObjects.FucarRentingManagementContext _context;
 
-        public DetailsModel(BusinessObjects.FucarRentingManagementContext context)
+        public DetailsModel(DataAccessObjects.FucarRentingManagementContext context)
         {
             _context = context;
         }

@@ -12,9 +12,9 @@ namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement
 {
     public class EditModel : PageModel
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        private readonly DataAccessObjects.FucarRentingManagementContext _context;
 
-        public EditModel(BusinessObjects.FucarRentingManagementContext context)
+        public EditModel(DataAccessObjects.FucarRentingManagementContext context)
         {
             _context = context;
         }

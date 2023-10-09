@@ -11,9 +11,9 @@ namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement
 {
     public class DeleteModel : PageModel
     {
-        private readonly BusinessObjects.FucarRentingManagementContext _context;
+        private readonly DataAccessObjects.FucarRentingManagementContext _context;
 
-        public DeleteModel(BusinessObjects.FucarRentingManagementContext context)
+        public DeleteModel(DataAccessObjects.FucarRentingManagementContext context)
         {
             _context = context;
         }
