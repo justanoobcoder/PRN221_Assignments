@@ -12,6 +12,11 @@ public class RentingRepository : IRentingRepository
 {
     public IQueryable<RentingTransaction> GetAllTransactions() => RentingDAO.Instance.GetAllTransactions();
 
+    public RentingTransaction? GetTransactionById(int id) => RentingDAO.Instance.GetTransactionById(id);
+
+    public IQueryable<RentingDetail> GetRentingDetailsByTransactionId(int id) 
+        => RentingDAO.Instance.GetRentingDetailsByTransactionId(id);
+
     public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction) 
         => RentingDAO.Instance.CreateTransaction(rentingTransaction);
 

@@ -39,6 +39,23 @@ public class RentingDAO
             .Include(r => r.RentingDetails);
     }
 
+    public RentingTransaction? GetTransactionById(int id)
+    {
+        var context = new FucarRentingManagementContext();
+        return context.RentingTransactions
+            .Include(r => r.Customer)
+            .Include(r => r.RentingDetails)
+            .SingleOrDefault(r => r.RentingTransationId == id);
+    }
+
+    public IQueryable<RentingDetail> GetRentingDetailsByTransactionId(int id)
+    {
+        var context = new FucarRentingManagementContext();
+        return context.RentingDetails
+            .Include(d => d.Car)
+            .Where(d => d.RentingTransactionId == id);
+    }
+
     private int GetNextId()
     {
         var context = new FucarRentingManagementContext();

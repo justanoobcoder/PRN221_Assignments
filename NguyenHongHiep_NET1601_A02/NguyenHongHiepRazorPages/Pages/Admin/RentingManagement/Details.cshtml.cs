@@ -6,37 +6,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
+using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement
+namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly IRentingRepository _rentingRepository;
+
+    public DetailsModel(IRentingRepository rentingRepository)
     {
-        private readonly DataAccessObjects.FucarRentingManagementContext _context;
+        _rentingRepository = rentingRepository;
+    }
 
-        public DetailsModel(DataAccessObjects.FucarRentingManagementContext context)
+    public RentingTransaction RentingTransaction { get; set; } = default!;
+    public List<RentingDetail> Details { get; set; } = new();
+
+    public IActionResult OnGet(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-      public RentingTransaction RentingTransaction { get; set; } = default!; 
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var rentingtransaction = _rentingRepository.GetTransactionById(id.Value);
+        if (rentingtransaction == null)
         {
-            if (id == null || _context.RentingTransactions == null)
-            {
-                return NotFound();
-            }
-
-            var rentingtransaction = await _context.RentingTransactions.FirstOrDefaultAsync(m => m.RentingTransationId == id);
-            if (rentingtransaction == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                RentingTransaction = rentingtransaction;
-            }
-            return Page();
+            return NotFound();
         }
+        else 
+        {
+            RentingTransaction = rentingtransaction;
+            Details = _rentingRepository.GetRentingDetailsByTransactionId(id.Value).ToList();
+        }
+        return Page();
     }
 }

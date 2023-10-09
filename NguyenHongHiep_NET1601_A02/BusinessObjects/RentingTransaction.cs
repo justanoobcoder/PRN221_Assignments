@@ -15,6 +15,7 @@ public partial class RentingTransaction
     public DateTime? RentingDate { get; set; }
 
     [DisplayName("Total Price")]
+    [DataType(DataType.Currency)]
     public decimal? TotalPrice { get; set; }
 
     public int CustomerId { get; set; }

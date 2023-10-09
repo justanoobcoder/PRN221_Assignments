@@ -49,6 +49,7 @@ public partial class CarInformation
     [DisplayName("Price Per Day")]
     [Required(ErrorMessage = "Price per day is required")]
     [Range(0.0001, 100000000, ErrorMessage = "Price per day must be greater than 0")]
+    [DataType(DataType.Currency)]
     public decimal? CarRentingPricePerDay { get; set; }
 
     public virtual Manufacturer Manufacturer { get; set; } = null!;

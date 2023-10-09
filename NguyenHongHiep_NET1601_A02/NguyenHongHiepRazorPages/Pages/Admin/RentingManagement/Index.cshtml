@@ -57,8 +57,13 @@
                 @Html.DisplayFor(modelItem => item.RentingStatus)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.RentingTransationId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.RentingTransationId">Details</a>
+                <span>
+                    @if (item.RentingStatus == 1)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.RentingTransationId"><i class="fa fa-edit" style="font-size:24px"></i></a>
+                    }
+                    <a asp-page="./Details" asp-route-id="@item.RentingTransationId"><i class="fa fa-eye" style="font-size:24px"></i></a>
+                </span>
             </td>
         </tr>
 }
