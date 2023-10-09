@@ -41,11 +41,14 @@
         <label>To: </label>
         <input id="end-date" type="date" asp-for="EndDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
         <button id="submit-btn" class="btn btn-primary">Add car</button>
+        @Html.ValidationMessageFor(model => model.Error, "", new { @class = "text-danger" })
     </div>
 </form>
 @if (Model.RentingCars.Count > 0)
 {
-    <h4>Car list</h4>
+    <form method="post" asp-page-handler="Rent">
+        <button class="btn btn-primary">Rent</button>
+    </form>
     <table class="table">
         <thead>
             <tr>
