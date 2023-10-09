@@ -39,9 +39,17 @@ public class RentingDAO
             .Include(r => r.RentingDetails);
     }
 
+    private int GetNextId()
+    {
+        var context = new FucarRentingManagementContext();
+        int count = context.RentingTransactions.Count();
+        return (count == 0) ? 1 : context.RentingTransactions.Max(e => e.RentingTransationId) + 1;
+    }
+
     public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction)
     {
         var context = new FucarRentingManagementContext();
+        rentingTransaction.RentingTransationId = GetNextId();
         context.RentingTransactions.Add(rentingTransaction);
         context.SaveChanges();
         return rentingTransaction;
