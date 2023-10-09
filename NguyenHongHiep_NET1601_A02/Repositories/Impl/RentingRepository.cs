@@ -22,4 +22,6 @@ public class RentingRepository : IRentingRepository
 
     public bool CanCarBeRented(int carId, DateTime startDate, DateTime endDate) 
         => RentingDAO.Instance.CanCarBeRented(carId, startDate, endDate);
+
+    public void Update(int id, byte status) => RentingDAO.Instance.Update(id, status);
 }

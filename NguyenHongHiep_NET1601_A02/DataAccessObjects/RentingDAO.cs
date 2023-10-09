@@ -81,4 +81,12 @@ public class RentingDAO
             .ToList();
         return rentingDetails.Count == 0;
     }
+
+    public void Update(int id, byte status)
+    {
+        var context = new FucarRentingManagementContext();
+        var rentingTransaction = context.RentingTransactions.Find(id);
+        rentingTransaction!.RentingStatus = status;
+        context.SaveChanges();
+    }
 }

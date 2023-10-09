@@ -36,36 +36,46 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.RentingTransaction) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentingTransationId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.Telephone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentingStatus)
-            </td>
-            <td>
-                <span>
-                    @if (item.RentingStatus == 1)
+        @foreach (var item in Model.RentingTransaction)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingTransationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @if (item.RentingStatus == 0)
                     {
-                        <a asp-page="./Edit" asp-route-id="@item.RentingTransationId"><i class="fa fa-edit" style="font-size:24px"></i></a>
+                        <span class="text-danger">Not return</span>
                     }
-                    <a asp-page="./Details" asp-route-id="@item.RentingTransationId"><i class="fa fa-eye" style="font-size:24px"></i></a>
-                </span>
-            </td>
-        </tr>
-}
+                    else
+                    {
+                        <span class="text-success">Returned</span>
+                    }
+                </td>
+                <td>
+                    <span>
+                        @if (item.RentingStatus == 0)
+                        {
+                            <form class="d-inline" method="post" asp-page-handler="Done" asp-route-id="@item.RentingTransationId">
+                                <button class="d-inline border-0 bg-white"><i class="fa fa-check-square-o text-info" style="font-size:24px"></i></button>
+                            </form>
+                        }
+                        <a asp-page="./Details" asp-route-id="@item.RentingTransationId"><i class="fa fa-eye" style="font-size:24px"></i></a>
+                    </span>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

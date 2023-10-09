@@ -25,4 +25,15 @@ public class IndexModel : PageModel
     {
         RentingTransaction = _rentingRepository.GetAllTransactions().ToList();
     }
+
+    public IActionResult OnPostDone(int id)
+    {
+        var rentingTransaction = _rentingRepository.GetTransactionById(id);
+        if (rentingTransaction == null)
+        {
+            return NotFound();
+        }
+        _rentingRepository.Update(id, 1);
+        return RedirectToPage("./Index");
+    }
 }

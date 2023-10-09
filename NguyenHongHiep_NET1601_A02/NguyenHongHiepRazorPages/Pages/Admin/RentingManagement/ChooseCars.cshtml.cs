@@ -117,7 +117,7 @@ public class ChooseCarsModel : PageModel
             CustomerId = transaction.CustomerId,
             RentingDate = DateTime.Now,
             TotalPrice = transaction.Details.Sum(d => d.Price),
-            RentingStatus = 1,
+            RentingStatus = 0,
         };
         foreach (var detail in transaction.Details)
         {
