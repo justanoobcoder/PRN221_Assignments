@@ -37,10 +37,10 @@
         <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
         <div class="mt-2"></div>
         <label>Rent From: </label>
-        <input type="date" asp-for="StartDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
+        <input id="start-date" type="date" asp-for="StartDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
         <label>To: </label>
-        <input type="date" asp-for="EndDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
-        <button class="btn btn-primary">Add car</button>
+        <input id="end-date" type="date" asp-for="EndDate" onfocus="this.min=new Date().toISOString().split('T')[0]" />
+        <button id="submit-btn" class="btn btn-primary">Add car</button>
     </div>
 </form>
 @if (Model.RentingCars.Count > 0)
@@ -96,5 +96,27 @@
             }
         </tbody>
     </table>
-
 }
+<script>
+    const startDate = document.getElementById("start-date");
+    const endDate = document.getElementById("end-date");
+    const submitBtn = document.getElementById("submit-btn");
+    startDate.addEventListener("change", (e) => {
+        let start = new Date(e.target.value);
+        let end = new Date(endDate.value);
+        if (start > end) {
+            submitBtn.disabled = true;
+        } else {
+            submitBtn.disabled = false;
+        }
+    });
+    endDate.addEventListener("change", (e) => {
+        let end = new Date(e.target.value);
+        let start = new Date(startDate.value);
+        if (start > end) {
+            submitBtn.disabled = true;
+        } else {
+            submitBtn.disabled = false;
+        }
+    });
+</script>
