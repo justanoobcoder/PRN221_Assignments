@@ -57,11 +57,11 @@
                 <td>
                     @if (item.RentingStatus == 0)
                     {
-                        <span class="text-danger">Not return</span>
+                        <span class="text-danger">Renting</span>
                     }
-                    else
+                    else if (item.RentingStatus == 1)
                     {
-                        <span class="text-success">Returned</span>
+                        <span class="text-success">Done</span>
                     }
                 </td>
                 <td>

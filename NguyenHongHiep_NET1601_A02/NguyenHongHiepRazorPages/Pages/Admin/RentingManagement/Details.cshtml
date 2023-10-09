@@ -40,7 +40,14 @@
             @Html.DisplayNameFor(model => model.RentingTransaction.RentingStatus)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RentingTransaction.RentingStatus)
+            @if (Model.RentingTransaction.RentingStatus == 0)
+            {
+                <span class="text-danger">Renting</span>
+            }
+            else if (Model.RentingTransaction.RentingStatus == 1)
+            {
+                <span class="text-success">Done</span>
+            }
         </dd>
     </dl>
 </div>
