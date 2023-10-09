@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessObjects;
 
@@ -10,6 +11,7 @@ public partial class RentingTransaction
     public int RentingTransationId { get; set; }
 
     [DisplayName("Rent Date")]
+    [DataType(DataType.Date)]
     public DateTime? RentingDate { get; set; }
 
     [DisplayName("Total Price")]

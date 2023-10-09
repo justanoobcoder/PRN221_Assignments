@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessObjects;
 
@@ -9,8 +10,10 @@ public partial class RentingDetail
 
     public int CarId { get; set; }
 
+    [DataType(DataType.Date)]
     public DateTime StartDate { get; set; }
 
+    [DataType(DataType.Date)]
     public DateTime EndDate { get; set; }
 
     public decimal? Price { get; set; }

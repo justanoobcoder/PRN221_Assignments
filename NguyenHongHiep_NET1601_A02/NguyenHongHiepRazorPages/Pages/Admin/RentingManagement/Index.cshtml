@@ -21,6 +21,9 @@
                 @Html.DisplayNameFor(model => model.RentingTransaction[0].Customer)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].Customer.Telephone)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.RentingTransaction[0].RentingDate)
             </th>
             <th>
@@ -42,6 +45,9 @@
                 @Html.DisplayFor(modelItem => item.Customer.CustomerName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Customer.Telephone)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.RentingDate)
             </td>
             <td>
@@ -52,8 +58,7 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.RentingTransationId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.RentingTransationId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.RentingTransationId">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.RentingTransationId">Details</a>
             </td>
         </tr>
 }
