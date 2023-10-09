@@ -14,4 +14,7 @@ public class RentingRepository : IRentingRepository
 
     public RentingTransaction CreateTransaction(RentingTransaction rentingTransaction) 
         => RentingDAO.Instance.CreateTransaction(rentingTransaction);
+
+    public bool CanCarBeRented(int carId, DateTime startDate, DateTime endDate) 
+        => RentingDAO.Instance.CanCarBeRented(carId, startDate, endDate);
 }

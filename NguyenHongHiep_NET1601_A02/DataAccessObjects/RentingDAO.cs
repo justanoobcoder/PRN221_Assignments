@@ -54,4 +54,14 @@ public class RentingDAO
         context.SaveChanges();
         return rentingTransaction;
     }
+
+    public bool CanCarBeRented(int carId, DateTime startDate, DateTime endDate)
+    {
+        var context = new FucarRentingManagementContext();
+        var rentingDetails = context.RentingDetails
+            .Where(d => d.CarId == carId)
+            .Where(d => d.StartDate <= endDate && d.EndDate >= startDate)
+            .ToList();
+        return rentingDetails.Count == 0;
+    }
 }

@@ -11,4 +11,5 @@ public interface IRentingRepository
 {
     IQueryable<RentingTransaction> GetAllTransactions();
     RentingTransaction CreateTransaction(RentingTransaction rentingTransaction);
+    bool CanCarBeRented(int carId, DateTime startDate, DateTime endDate);
 }
