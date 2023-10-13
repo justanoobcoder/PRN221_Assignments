@@ -24,8 +24,6 @@ public sealed class AdminAccount
             .AddJsonFile("appsettings.json", true, true)
             .Build();
         var info = config[$"AdminAccount:{key}"];
-        if (info is null)
-            throw new Exception($"Admin account info {key} is not found in appsettings.json");
-        return info;
+        return info is null ? throw new Exception($"Admin account info {key} is not found in appsettings.json") : info;
     }
 }

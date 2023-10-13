@@ -4,18 +4,19 @@ using Repositories.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddRazorPages()
+    .AddMvcOptions(options =>
+    {
+        options.Filters.Add(new AuthorizationFilter());
+    });
+
+// Add session support
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
-builder.Services.AddRazorPages()
-    .AddMvcOptions(options =>
-    {
-        //options.Filters.Add(new AuthorizationFilter());
-    });
-
+// Add dependency injections
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IRentingRepository, RentingRepository>();

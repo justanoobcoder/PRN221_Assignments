@@ -10,6 +10,7 @@ namespace Repositories;
 public interface IRentingRepository
 {
     IQueryable<RentingTransaction> GetAllTransactions();
+    IQueryable<RentingTransaction> GetTransactionsByCustomerEmail(string email);
     RentingTransaction? GetTransactionById(int id);
     IQueryable<RentingDetail> GetRentingDetailsByTransactionId(int id);
     RentingTransaction CreateTransaction(RentingTransaction rentingTransaction);

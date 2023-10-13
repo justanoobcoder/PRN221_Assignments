@@ -56,6 +56,15 @@ public class RentingDAO
             .Where(d => d.RentingTransactionId == id);
     }
 
+    public IQueryable<RentingTransaction> GetTransactionsByCustomerEmail(string email)
+    {
+        var context = new FucarRentingManagementContext();
+        return context.RentingTransactions
+            .Include(r => r.Customer)
+            .Include(r => r.RentingDetails)
+            .Where(r => r.Customer.Email == email);
+    }
+
     private int GetNextId()
     {
         var context = new FucarRentingManagementContext();

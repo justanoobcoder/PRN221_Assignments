@@ -24,4 +24,7 @@ public class RentingRepository : IRentingRepository
         => RentingDAO.Instance.CanCarBeRented(carId, startDate, endDate);
 
     public void Update(int id, byte status) => RentingDAO.Instance.Update(id, status);
+
+    public IQueryable<RentingTransaction> GetTransactionsByCustomerEmail(string email)
+        => RentingDAO.Instance.GetTransactionsByCustomerEmail(email);
 }

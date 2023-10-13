@@ -1,0 +1,99 @@
+﻿@page
+@model NguyenHongHiepRazorPages.Pages.Member.Renting.DetailsModel
+@{
+    Layout = "_MemberLayout";
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RentingTransaction</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentingTransaction.Customer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentingTransaction.Customer.CustomerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentingTransaction.Customer.Telephone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentingTransaction.Customer.Telephone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentingTransaction.RentingDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentingTransaction.RentingDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentingTransaction.TotalPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentingTransaction.TotalPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentingTransaction.RentingStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.RentingTransaction.RentingStatus == 0)
+            {
+                <span class="text-danger">Renting</span>
+            }
+            else if (Model.RentingTransaction.RentingStatus == 1)
+            {
+                <span class="text-success">Done</span>
+            }
+        </dd>
+    </dl>
+</div>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].CarId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Car.CarName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].EndDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Details)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.CarName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a class="btn btn-primary" asp-page="./Index">Back to List</a>
+</div>
