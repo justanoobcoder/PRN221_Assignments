@@ -1,0 +1,60 @@
+﻿@page
+@model NguyenHongHiepSignalR.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_LoginRegisterLayout";
+}
+
+<div class="container">
+    <div class="register-page">
+        <div class="form">
+            <div class="register-form">
+                <form method="post">
+                    <div>
+                        <input type="text" placeholder="Name" asp-for="Customer.Name">
+                        @Html.ValidationMessageFor(m => m.Customer.Name, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <input type="number" class="no-space" placeholder="Telephone" asp-for="Customer.Telephone">
+                        @Html.ValidationMessageFor(m => m.Customer.Telephone, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <input type="email" class="no-space" placeholder="Email" asp-for="Customer.Email">
+                        @Html.ValidationMessageFor(m => m.Customer.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <input type="password" class="no-space" placeholder="Password" asp-for="Customer.Password">
+                        @Html.ValidationMessageFor(m => m.Customer.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <input type="password" class="no-space" placeholder="Confirm Password" asp-for="Customer.ConfirmPassword">
+                        @Html.ValidationMessageFor(m => m.Customer.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        <input type="date" placeholder="Birthday" asp-for="Customer.Birthday" min="1900-01-01"
+                               onfocus="this.max=new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate()).toISOString().split('T')[0]" />
+                        @Html.ValidationMessageFor(m => m.Customer.Birthday, "", new { @class = "text-danger" })
+                    </div>
+                    <button>Create</button>
+                </form>
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @TempData["Success"]
+                    </div>
+                }
+                else if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["Error"]
+                    </div>
+                }
+                <p class="message">Already registered? <a href="/">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

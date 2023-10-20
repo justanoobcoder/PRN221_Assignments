@@ -1,0 +1,89 @@
+﻿@page
+@model NguyenHongHiepSignalR.Pages.Admin.CustomerManagement.IndexModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-page="Create">Create New</a>
+</p>
+<div>
+    <form method="get">
+        <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Search by name">
+        </div>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Telephone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerBirthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer[0].CustomerStatus)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="table-body">
+@foreach (var item in Model.Customer) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telephone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerBirthday)
+            </td>
+            <td>
+                @if (item.CustomerStatus == 1)
+                {
+                    <span style="color: green;">Active</span>
+                }
+                else
+                {
+                    <span style="color: red">Deleted</span>
+                }
+            </td>
+            <td>
+                @if (item.CustomerStatus == 1)
+                {
+                    <span>
+                        <a asp-page="./Edit" asp-route-id="@item.CustomerId"><i class="fa fa-edit" style="font-size:24px"></i></a> |
+                        <a asp-page="./Details" asp-route-id="@item.CustomerId"><i class="fa fa-eye" style="font-size:24px"></i></a> |
+                        <a asp-page="./Delete" asp-route-id="@item.CustomerId"><i class="fa fa-trash-o text-danger" style="font-size:24px"></i></a>
+                    </span>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/register-connection.js"></script>
+}
