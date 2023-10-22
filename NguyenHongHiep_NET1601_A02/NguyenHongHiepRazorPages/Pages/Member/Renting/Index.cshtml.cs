@@ -20,14 +20,15 @@ public class IndexModel : PageModel
 
     public IList<RentingTransaction> RentingTransaction { get; set; } = default!;
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
         var currentUser = HttpContext.Session.GetObjectFromJson<CurrentUser>(Constants.Contants.CurrentUserKey);
         if (currentUser == null)
         {
-            RedirectToPage("/");
+            return RedirectToPage("/Login");
         }
         RentingTransaction = _rentingRepository.GetTransactionsByCustomerEmail(currentUser.Email).ToList();
+        return Page();
     }
 
     public IActionResult OnPost()
@@ -35,12 +36,12 @@ public class IndexModel : PageModel
         var currentUser = HttpContext.Session.GetObjectFromJson<CurrentUser>(Constants.Contants.CurrentUserKey);
         if (currentUser == null)
         {
-            RedirectToPage("/");
+            return RedirectToPage("/Login");
         }
         var customer = _customerRepository.GetByEmail(currentUser!.Email);
         if (customer == null)
         {
-            RedirectToPage("/");
+            return RedirectToPage("/Login");
         }
         TransactionModel transaction = new()
         {

@@ -19,7 +19,7 @@ public class IndexModel : PageModel
 
     public Customer Customer { get; set; } = default!;
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
         var loginUser = SessionHelper.GetObjectFromJson<CurrentUser>(HttpContext.Session, Constants.Contants.CurrentUserKey);
         if (loginUser != null)
@@ -31,12 +31,13 @@ public class IndexModel : PageModel
             }
             else
             {
-                RedirectToPage("/Login");
+                return RedirectToPage("/Login");
             }
         }
         else
         {
-            RedirectToPage("/Login");
+            return RedirectToPage("/Login");
         }
+        return Page();
     }
 }
