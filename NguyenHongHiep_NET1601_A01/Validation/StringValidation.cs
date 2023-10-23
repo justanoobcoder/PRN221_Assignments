@@ -17,7 +17,7 @@ public static class StringValidation
 
     public static bool IsPhoneNumber(this string phone)
     {
-        Regex validatePhoneNumberRegex = new Regex("^\\+?[1-9][0-9]{7,14}$");
+        Regex validatePhoneNumberRegex = new Regex("^\\+?[0-9][0-9]{7,14}$");
         return validatePhoneNumberRegex.IsMatch(phone);
     }
 
