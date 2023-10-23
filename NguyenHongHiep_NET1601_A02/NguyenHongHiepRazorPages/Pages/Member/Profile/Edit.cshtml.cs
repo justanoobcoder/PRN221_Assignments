@@ -26,28 +26,17 @@ public class EditModel : PageModel
     [BindProperty]
     public Customer Customer { get; set; } = default!;
 
-    public IActionResult OnGet(int? id)
+    public IActionResult OnGet()
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-        var customer = _customerRepository.GetById(id.Value);
-        if (customer == null || customer.CustomerStatus == 0)
-        {
-            return NotFound();
-        }
         var loginUser = SessionHelper.GetObjectFromJson<CurrentUser>(HttpContext.Session, Constants.Contants.CurrentUserKey);
         if (loginUser == null)
         {
             return RedirectToPage("/Login");
         }
-        else
+        var customer = _customerRepository.GetByEmail(loginUser.Email);
+        if (customer == null || customer.CustomerStatus == 0)
         {
-            if (loginUser.Email != customer.Email)
-            {
-                return RedirectToPage("/ForbidenError");
-            }
+            return NotFound();
         }
         Customer = customer;
         return Page();
