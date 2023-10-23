@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using Repositories;
 using NguyenHongHiepRazorPages.Admin;
+using NguyenHongHiepRazorPages.Models;
+using NguyenHongHiepRazorPages.Utils;
 
 namespace NguyenHongHiepRazorPages.Pages.Member.Profile;
 
@@ -30,11 +32,22 @@ public class EditModel : PageModel
         {
             return NotFound();
         }
-
         var customer = _customerRepository.GetById(id.Value);
         if (customer == null || customer.CustomerStatus == 0)
         {
             return NotFound();
+        }
+        var loginUser = SessionHelper.GetObjectFromJson<CurrentUser>(HttpContext.Session, Constants.Contants.CurrentUserKey);
+        if (loginUser == null)
+        {
+            return RedirectToPage("/Login");
+        }
+        else
+        {
+            if (loginUser.Email != customer.Email)
+            {
+                return RedirectToPage("/ForbidenError");
+            }
         }
         Customer = customer;
         return Page();
