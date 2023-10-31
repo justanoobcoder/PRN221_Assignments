@@ -1,0 +1,81 @@
+﻿@page
+@model NguyenHongHiepRazorPages.Pages.Admin.RentingManagement.IndexModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-page="ChooseCustomer">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].RentingTransationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].Customer.Telephone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].RentingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentingTransaction[0].RentingStatus)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RentingTransaction)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingTransationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @if (item.RentingStatus == 0)
+                    {
+                        <span class="text-danger">Renting</span>
+                    }
+                    else if (item.RentingStatus == 1)
+                    {
+                        <span class="text-success">Done</span>
+                    }
+                </td>
+                <td>
+                    <span>
+                        @if (item.RentingStatus == 0)
+                        {
+                            <form class="d-inline" method="post" asp-page-handler="Done" asp-route-id="@item.RentingTransationId">
+                                <button class="d-inline border-0 bg-white"><i class="fa fa-check-square-o text-info" style="font-size:24px"></i></button>
+                            </form>
+                        }
+                        <a asp-page="./Details" asp-route-id="@item.RentingTransationId"><i class="fa fa-eye" style="font-size:24px"></i></a>
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
