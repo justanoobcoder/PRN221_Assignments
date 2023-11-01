@@ -40,9 +40,9 @@ public class ChooseCarsModel : PageModel
             return NotFound();
         Customer = c;
 
-        //var carIds = transaction.Details.Select(d => d.CarId);
+        var carIds = transaction.Details.Select(d => d.CarId);
         var cars = (await _carRepository.GetCarsAsync())
-                .Where(c => c.CarStatus != 0 /*&& !carIds.Contains(c.CarId)*/)
+                .Where(c => c.CarStatus != 0 && !carIds.Contains(c.CarId))
                 .ToList();
         ViewData["CarId"] = new SelectList(cars, "CarId", "CarName");
         RentingCars = transaction.Details;
@@ -60,23 +60,23 @@ public class ChooseCarsModel : PageModel
             return NotFound();
         if (StartDate > EndDate)
             return BadRequest();
-        var details = transaction!.Details;
-        bool isOverlapped = false;
-        if (details.Any(d => d.CarId == car.CarId &&
-                !(d.StartDate > EndDate || d.EndDate < StartDate)))
-        {
-            isOverlapped = true;
-        }
-        if (!(await _rentingRepository.CanCarBeRentedAsync(car.CarId, StartDate, EndDate)) || isOverlapped)
+        //var details = transaction!.Details;
+        //bool isOverlapped = false;
+        //if (details.Any(d => d.CarId == car.CarId &&
+        //        !(d.StartDate > EndDate || d.EndDate < StartDate)))
+        //{
+        //    isOverlapped = true;
+        //}
+        if (!(await _rentingRepository.CanCarBeRentedAsync(car.CarId, StartDate, EndDate))/* || isOverlapped*/)
         {
             var c = await _customerRepository.GetCustomerByIdAsync(transaction.CustomerId);
             if (c == null || c.CustomerStatus == 0)
                 return NotFound();
             Customer = c;
 
-            //var carIds = transaction.Details.Select(d => d.CarId);
+            var carIds = transaction.Details.Select(d => d.CarId);
             var cars = (await _carRepository.GetCarsAsync())
-                    .Where(c => c.CarStatus != 0 /*&& !carIds.Contains(c.CarId)*/)
+                    .Where(c => c.CarStatus != 0 && !carIds.Contains(c.CarId))
                     .ToList();
             ViewData["CarId"] = new SelectList(cars, "CarId", "CarName");
             RentingCars = transaction.Details;
