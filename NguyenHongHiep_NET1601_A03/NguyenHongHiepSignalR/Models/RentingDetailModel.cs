@@ -5,6 +5,8 @@ namespace NguyenHongHiepSignalR.Models;
 
 public class RentingDetailModel
 {
+    public int Index { get; set; }
+
     [DisplayName("Car ID")]
     public int CarId { get; set; }
 
