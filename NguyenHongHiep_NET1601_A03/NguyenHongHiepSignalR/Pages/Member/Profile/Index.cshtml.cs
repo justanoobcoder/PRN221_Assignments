@@ -6,7 +6,7 @@ using NguyenHongHiepSignalR.Models;
 using NguyenHongHiepSignalR.Utils;
 using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Member.Profile;
+namespace NguyenHongHiepSignalR.Pages.Member.Profile;
 
 [BindProperties]
 public class IndexModel : PageModel

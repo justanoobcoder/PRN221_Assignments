@@ -7,7 +7,7 @@ using NguyenHongHiepSignalR.Models;
 using NguyenHongHiepSignalR.Utils;
 using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Member.Renting;
+namespace NguyenHongHiepSignalR.Pages.Member.Renting;
 
 [BindProperties]
 public class ChooseCarsModel : PageModel

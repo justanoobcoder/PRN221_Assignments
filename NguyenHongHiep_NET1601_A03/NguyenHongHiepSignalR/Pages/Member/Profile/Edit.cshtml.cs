@@ -13,7 +13,7 @@ using NguyenHongHiepSignalR.Models;
 using NguyenHongHiepSignalR.Constants;
 using NguyenHongHiepSignalR.Admin;
 
-namespace NguyenHongHiepRazorPages.Pages.Member.Profile;
+namespace NguyenHongHiepSignalR.Pages.Member.Profile;
 
 public class EditModel : PageModel
 {
