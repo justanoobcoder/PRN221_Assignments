@@ -18,6 +18,8 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IRentingRepository, RentingRepository>();
 
 var app = builder.Build();
 

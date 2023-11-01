@@ -1,5 +1,4 @@
 ﻿$(function () {
-    console.log("register-connection.js");
     const connection = new signalR.HubConnectionBuilder().withUrl("/customer-hub").build();
     connection.on("RegisterCustomer", function (customer) {
         let newCustomerRow = 
