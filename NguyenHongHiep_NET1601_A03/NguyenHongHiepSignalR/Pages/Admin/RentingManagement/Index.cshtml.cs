@@ -10,6 +10,7 @@ using Repositories;
 
 namespace NguyenHongHiepSignalR.Pages.Admin.RentingManagement;
 
+[BindProperties]
 public class IndexModel : PageModel
 {
     private readonly IRentingRepository _rentingRepository;
@@ -21,7 +22,7 @@ public class IndexModel : PageModel
 
     public IList<RentingTransaction> RentingTransaction { get;set; } = default!;
 
-    public async Task OnGetAsyn()
+    public async Task OnGetAsync()
     {
         RentingTransaction = (await _rentingRepository.GetAllTransactionsAsync()).ToList();
     }

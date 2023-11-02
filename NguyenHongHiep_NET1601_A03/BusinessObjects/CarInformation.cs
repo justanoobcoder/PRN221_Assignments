@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -12,11 +13,12 @@ public partial class CarInformation
 
     [DisplayName("Name")]
     [Required(ErrorMessage = "Car name is required")]
-    [StringLength(50, MinimumLength = 3, ErrorMessage = "Car name must be from 3 to 50 characters")]
+    [StringLength(50, MinimumLength = 2, ErrorMessage = "Car name must be from 2 to 50 characters")]
     public string CarName { get; set; } = null!;
 
     [DisplayName("Description")]
-    [StringLength(500, MinimumLength = 3, ErrorMessage = "Car description must be from 3 to 500 characters")]
+    [Required(ErrorMessage = "Car description is required")]
+    [StringLength(500, MinimumLength = 2, ErrorMessage = "Car description must be from 2 to 500 characters")]
     public string? CarDescription { get; set; }
 
     [DisplayName("Number Of Doors")]

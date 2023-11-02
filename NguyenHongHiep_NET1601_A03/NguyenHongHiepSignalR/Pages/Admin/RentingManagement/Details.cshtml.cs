@@ -10,6 +10,7 @@ using Repositories;
 
 namespace NguyenHongHiepSignalR.Pages.Admin.RentingManagement;
 
+[BindProperties]
 public class DetailsModel : PageModel
 {
     private readonly IRentingRepository _rentingRepository;
