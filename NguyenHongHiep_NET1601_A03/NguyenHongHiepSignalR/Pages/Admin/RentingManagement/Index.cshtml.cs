@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement;
+namespace NguyenHongHiepSignalR.Pages.Admin.RentingManagement;
 
+[BindProperties]
 public class IndexModel : PageModel
 {
     private readonly IRentingRepository _rentingRepository;
@@ -21,7 +22,7 @@ public class IndexModel : PageModel
 
     public IList<RentingTransaction> RentingTransaction { get;set; } = default!;
 
-    public async Task OnGetAsyn()
+    public async Task OnGetAsync()
     {
         RentingTransaction = (await _rentingRepository.GetAllTransactionsAsync()).ToList();
     }
@@ -34,6 +35,17 @@ public class IndexModel : PageModel
             return NotFound();
         }
         await _rentingRepository.UpdateAsync(id, 1);
+        return RedirectToPage("./Index");
+    }
+
+    public async Task<IActionResult> OnPostRent(int id)
+    {
+        var rentingTransaction = await _rentingRepository.GetTransactionByIdAsync(id);
+        if (rentingTransaction == null)
+        {
+            return NotFound();
+        }
+        await _rentingRepository.UpdateAsync(id, 2);
         return RedirectToPage("./Index");
     }
 }

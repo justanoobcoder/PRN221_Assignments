@@ -1,5 +1,5 @@
 ﻿@page
-@model NguyenHongHiepRazorPages.Pages.Member.Renting.ChooseCarsModel
+@model NguyenHongHiepSignalR.Pages.Member.Renting.ChooseCarsModel
 @{
     ViewData["Title"] = "ChooseCars";
     Layout = "_MemberLayout";
@@ -92,7 +92,7 @@
                     </td>
                     <td>
                         <form method="post" asp-page-handler="Delete">
-                            <input type="hidden" name="id" value="@item.CarId">
+                            <input type="hidden" name="index" value="@item.Index">
                             <button class="btn btn-danger">Delete</button>
                         </form>
                     </td>
@@ -124,3 +124,8 @@
         }
     });
 </script>
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/customer-car-signalr.js"></script>
+}

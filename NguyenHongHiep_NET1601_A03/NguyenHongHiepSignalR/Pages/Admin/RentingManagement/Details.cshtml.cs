@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.RentingManagement;
+namespace NguyenHongHiepSignalR.Pages.Admin.RentingManagement;
 
+[BindProperties]
 public class DetailsModel : PageModel
 {
     private readonly IRentingRepository _rentingRepository;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repositories;
 using System.ComponentModel.DataAnnotations;
 
-namespace NguyenHongHiepRazorPages.Pages.Admin.ReportStatistic;
+namespace NguyenHongHiepSignalR.Pages.Admin.ReportStatistic;
 
 [BindProperties]
 public class IndexModel : PageModel

@@ -1,5 +1,5 @@
 ﻿@page
-@model NguyenHongHiepRazorPages.Pages.Member.Renting.IndexModel
+@model NguyenHongHiepSignalR.Pages.Member.Renting.IndexModel
 @{
     Layout = "_MemberLayout";
     ViewData["Title"] = "Rentings";
@@ -58,11 +58,15 @@
                 <td>
                     @if (item.RentingStatus == 0)
                     {
-                        <span class="text-danger">Renting</span>
+                        <span class="text-warning">Waiting</span>
                     }
                     else if (item.RentingStatus == 1)
                     {
                         <span class="text-success">Done</span>
+                    }
+                    else if (item.RentingStatus == 2)
+                    {
+                        <span class="text-danger">Renting</span>
                     }
                 </td>
                 <td>

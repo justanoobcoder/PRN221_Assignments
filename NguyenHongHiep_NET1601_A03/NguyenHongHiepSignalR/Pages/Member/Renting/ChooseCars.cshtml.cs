@@ -7,7 +7,7 @@ using NguyenHongHiepSignalR.Models;
 using NguyenHongHiepSignalR.Utils;
 using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Member.Renting;
+namespace NguyenHongHiepSignalR.Pages.Member.Renting;
 
 [BindProperties]
 public class ChooseCarsModel : PageModel
@@ -60,7 +60,14 @@ public class ChooseCarsModel : PageModel
             return NotFound();
         if (StartDate > EndDate)
             return BadRequest();
-        if (!await _rentingRepository.CanCarBeRentedAsync(car.CarId, StartDate, EndDate))
+        //var details = transaction!.Details;
+        //bool isOverlapped = false;
+        //if (details.Any(d => d.CarId == car.CarId &&
+        //        !(d.StartDate > EndDate || d.EndDate < StartDate)))
+        //{
+        //    isOverlapped = true;
+        //}
+        if (!(await _rentingRepository.CanCarBeRentedAsync(car.CarId, StartDate, EndDate))/* || isOverlapped*/)
         {
             var c = await _customerRepository.GetCustomerByIdAsync(transaction.CustomerId);
             if (c == null || c.CustomerStatus == 0)
@@ -78,8 +85,10 @@ public class ChooseCarsModel : PageModel
         }
         TimeSpan difference = EndDate - StartDate;
         int numberOfDays = difference.Days + 1;
+        int count = transaction.Details.Count();
         transaction.Details.Add(new RentingDetailModel
         {
+            Index = (count == 0) ? 0 : transaction.Details.Max(d => d.Index) + 1,
             CarId = car.CarId,
             CarName = car.CarName,
             StartDate = StartDate,
@@ -91,14 +100,14 @@ public class ChooseCarsModel : PageModel
         return RedirectToPage("./ChooseCars");
     }
 
-    public IActionResult OnPostDelete(int? id)
+    public IActionResult OnPostDelete(int? index)
     {
-        if (id == null)
+        if (index == null)
             return BadRequest();
         TransactionModel? transaction = SessionHelper.GetObjectFromJson<TransactionModel>(HttpContext.Session, SessionKey.TransactionKey);
         if (transaction == null)
             return BadRequest();
-        var detail = transaction.Details.SingleOrDefault(d => d.CarId == id);
+        var detail = transaction.Details.SingleOrDefault(d => d.Index == index);
         if (detail == null)
             return NotFound();
         transaction.Details.Remove(detail);

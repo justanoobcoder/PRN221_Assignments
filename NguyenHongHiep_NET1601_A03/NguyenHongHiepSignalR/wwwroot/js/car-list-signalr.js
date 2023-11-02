@@ -1,6 +1,7 @@
 ﻿$(function () {
     const connection = new signalR.HubConnectionBuilder().withUrl("/car-hub").build();
-    connection.on("ReceiveCar", function (car, manufacturer, supplier) {
+    connection.on("ReceiveCreatedCar", function (car, manufacturer, supplier) {
+        console.log("ReceiveCreatedCar");
         let newCarRow =
             `<tr id="car-${car.carId}">
                 <td>
@@ -48,6 +49,7 @@
     });
 
     connection.on("ReceiveUpdatedCar", function (car, manufacturer, supplier) {
+        console.log("ReceiveUpdatedCar");
         let updatedCarRow =
             `
                 <td>
@@ -94,6 +96,7 @@
     });
 
     connection.on("ReceiveDeletedCar", function (carId, result) {
+        console.log("ReceiveDeletedCar");
         if (result == true) {
             $('#car-' + carId).remove();
         } else {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repositories;
 
-namespace NguyenHongHiepRazorPages.Pages.Member.Renting;
+namespace NguyenHongHiepSignalR.Pages.Member.Renting;
 
 public class DetailsModel : PageModel
 {
