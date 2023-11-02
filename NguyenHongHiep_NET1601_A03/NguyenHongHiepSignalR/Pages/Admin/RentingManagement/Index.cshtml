@@ -57,19 +57,29 @@
                 <td>
                     @if (item.RentingStatus == 0)
                     {
-                        <span class="text-danger">Renting</span>
+                        <span class="text-warning">Waiting</span>
                     }
                     else if (item.RentingStatus == 1)
                     {
                         <span class="text-success">Done</span>
+                    }
+                    else if (item.RentingStatus == 2)
+                    {
+                        <span class="text-danger">Renting</span>
                     }
                 </td>
                 <td>
                     <span>
                         @if (item.RentingStatus == 0)
                         {
+                            <form class="d-inline" method="post" asp-page-handler="Rent" asp-route-id="@item.RentingTransationId">
+                                <button class="d-inline border-0 bg-white"><i class="fa fa-check-square-o text-warning" style="font-size:24px"></i></button>
+                            </form>
+                        }
+                        else if (item.RentingStatus == 2)
+                        {
                             <form class="d-inline" method="post" asp-page-handler="Done" asp-route-id="@item.RentingTransationId">
-                                <button class="d-inline border-0 bg-white"><i class="fa fa-check-square-o text-info" style="font-size:24px"></i></button>
+                                <button class="d-inline border-0 bg-white"><i class="fa fa-check-square-o text-success" style="font-size:24px"></i></button>
                             </form>
                         }
                         <a asp-page="./Details" asp-route-id="@item.RentingTransationId"><i class="fa fa-eye" style="font-size:24px"></i></a>

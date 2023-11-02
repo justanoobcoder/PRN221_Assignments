@@ -42,11 +42,15 @@
         <dd class="col-sm-10">
             @if (Model.RentingTransaction.RentingStatus == 0)
             {
-                <span class="text-danger">Renting</span>
+                <span class="text-warning">Waiting</span>
             }
             else if (Model.RentingTransaction.RentingStatus == 1)
             {
                 <span class="text-success">Done</span>
+            }
+            else if (Model.RentingTransaction.RentingStatus == 2)
+            {
+                <span class="text-danger">Renting</span>
             }
         </dd>
     </dl>

@@ -37,4 +37,15 @@ public class IndexModel : PageModel
         await _rentingRepository.UpdateAsync(id, 1);
         return RedirectToPage("./Index");
     }
+
+    public async Task<IActionResult> OnPostRent(int id)
+    {
+        var rentingTransaction = await _rentingRepository.GetTransactionByIdAsync(id);
+        if (rentingTransaction == null)
+        {
+            return NotFound();
+        }
+        await _rentingRepository.UpdateAsync(id, 2);
+        return RedirectToPage("./Index");
+    }
 }
